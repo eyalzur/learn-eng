@@ -1,7 +1,7 @@
 # Current State
 
 ## Last Updated
-2025-12-02
+2025-12-02 15:30
 
 ## What's Working
 - [x] Project setup (Webpack + React + TypeScript)
@@ -13,6 +13,7 @@
 - [x] Record tracking (localStorage)
 - [x] Responsive design with RTL support
 - [x] Dev server running on port 4000
+- [x] Git repository initialized with GitHub remote
 
 ## Active Games
 
@@ -37,13 +38,13 @@ npm start
 ```
 
 ## Known Issues
-- None currently
+- Git push to remote pending (SSH port 3022 timeout / HTTPS auth needed)
 
 ## Recent Changes (This Session)
-- Fixed spelling game RTL bug (letters now display left-to-right)
-- Added justDropped guard to prevent click after drop
-- Added defensive trim() to answer comparison
-- Removed debug code after fix confirmed
+- Initialized git repository
+- Connected to GitHub remote: git@github.com:eyalzur/learn-eng.git
+- Created initial commit with all source files
+- Fixed .gitignore to exclude node_modules/ and dist/
 
 ## File Structure
 ```
