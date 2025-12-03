@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "description": "English learning app for Hebrew speakers",
   "scripts": {
-    "start": "webpack serve --mode development --open",
-    "build": "webpack --mode production"
+    "dev": "webpack serve --mode development --open",
+    "build": "webpack --mode production",
+    "start": "serve dist -s -l $PORT"
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "serve": "^14.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.0",
