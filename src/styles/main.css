@@ -245,31 +245,32 @@ body {
 /* Cards Grid */
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  padding: 10px;
+  grid-template-columns: repeat(2, auto);
+  gap: 10px;
+  padding: 12px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   backdrop-filter: blur(10px);
   margin: 0 auto;
   flex: 1;
-  width: 100%;
-  max-width: 400px;
-  align-content: start;
-  overflow-y: auto;
+  width: fit-content;
+  justify-content: center;
+  align-content: center;
 }
 
-/* 4 columns for 8+ pairs (16+ cards) */
+/* 4 columns for 6+ pairs */
 .cards-grid.cols-4 {
-  grid-template-columns: repeat(4, 1fr);
-  max-width: 500px;
+  grid-template-columns: repeat(4, auto);
 }
 
 /* Card Styles */
 .card {
   perspective: 1000px;
   cursor: pointer;
-  aspect-ratio: 1.4 / 1;
+  width: 80px;
+  height: 100px;
+  max-width: 90px;
+  max-height: 110px;
 }
 
 .card-inner {
@@ -328,11 +329,12 @@ body {
 }
 
 .card-content {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 700;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
   word-break: break-word;
   line-height: 1.2;
+  text-align: center;
 }
 
 .card-transcription {
@@ -340,6 +342,7 @@ body {
   opacity: 0.9;
   font-weight: 400;
   line-height: 1.1;
+  text-align: center;
 }
 
 .card.matched .card-back {
