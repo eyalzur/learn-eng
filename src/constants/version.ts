@@ -8,10 +8,11 @@
  *
  * Update this version when completing tasks or epics.
  */
-export const APP_VERSION = '0.1.17';
+export const APP_VERSION = '0.1.18';
 
 /**
  * Version History:
+ * 0.1.18 - Fix iOS Safari viewport height issues (dvh + JS fallback)
  * 0.1.17 - Increase tap target sizes to 48px minimum
  * 0.1.16 - Add mobile-first CSS breakpoints and responsive styles
  * 0.1.15 - Spelling Game: letter boxes in single line (no wrapping)

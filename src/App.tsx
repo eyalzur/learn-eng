@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MemoryGame } from './components/MemoryGame';
 import { SpellingGame } from './components/SpellingGame';
 import { GameMenu, GameType } from './components/GameMenu';
@@ -6,6 +6,23 @@ import './styles/main.css';
 
 export const App: React.FC = () => {
   const [currentGame, setCurrentGame] = useState<GameType>(null);
+
+  // Fix iOS Safari viewport height issue for browsers that don't support dvh
+  useEffect(() => {
+    const setVh = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+
+    setVh();
+    window.addEventListener('resize', setVh);
+    window.addEventListener('orientationchange', setVh);
+
+    return () => {
+      window.removeEventListener('resize', setVh);
+      window.removeEventListener('orientationchange', setVh);
+    };
+  }, []);
 
   const handleBackToMenu = () => {
     setCurrentGame(null);
