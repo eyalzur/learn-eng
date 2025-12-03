@@ -224,27 +224,14 @@ export const MemoryGame: React.FC<MemoryGameProps> = ({ wordCount: defaultWordCo
         </div>
       )}
 
-      <div className="cards-grid">
-        {cards.map((card, index) => {
-          // Calculate column order for center-out layout
-          // Column 0 (first 4 cards) -> order 0 (center)
-          // Column 1 (cards 4-7) -> order -1 (left)
-          // Column 2 (cards 8-11) -> order 1 (right)
-          // Column 3 (cards 12-15) -> order -2 (far left)
-          // Column 4 (cards 16-19) -> order 2 (far right)
-          const columnIndex = Math.floor(index / 4);
-          const columnOrder = columnIndex === 0 ? 0 :
-            (columnIndex % 2 === 1 ? -Math.ceil(columnIndex / 2) : Math.floor(columnIndex / 2));
-
-          return (
-            <Card
-              key={card.id}
-              card={card}
-              onClick={handleCardClick}
-              columnOrder={columnOrder}
-            />
-          );
-        })}
+      <div className={`cards-grid ${wordCount >= 8 ? 'cols-5' : ''}`}>
+        {cards.map((card) => (
+          <Card
+            key={card.id}
+            card={card}
+            onClick={handleCardClick}
+          />
+        ))}
       </div>
 
       <div className="game-instructions">

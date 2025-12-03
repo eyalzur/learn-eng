@@ -14,10 +14,9 @@ export interface CardData {
 interface CardProps {
   card: CardData;
   onClick: (id: string) => void;
-  columnOrder?: number;
 }
 
-export const Card: React.FC<CardProps> = ({ card, onClick, columnOrder = 0 }) => {
+export const Card: React.FC<CardProps> = ({ card, onClick }) => {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
@@ -35,13 +34,10 @@ export const Card: React.FC<CardProps> = ({ card, onClick, columnOrder = 0 }) =>
     ? { background: card.matchColor }
     : undefined;
 
-  const cardStyle = { order: columnOrder };
-
   return (
     <div
       className={`card ${isReady ? 'ready' : ''} ${card.isFlipped ? 'flipped' : ''} ${card.isMatched ? 'matched' : ''}`}
       onClick={handleClick}
-      style={cardStyle}
     >
       <div className="card-inner">
         <div className="card-front">
