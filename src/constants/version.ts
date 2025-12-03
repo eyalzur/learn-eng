@@ -1,0 +1,23 @@
+/**
+ * App Version
+ *
+ * Format: MAJOR.EPIC.TASK
+ * - MAJOR: Big refactors, breaking changes (0 = pre-release)
+ * - EPIC:  Completed epics count
+ * - TASK:  Completed tasks count within current development cycle
+ *
+ * Update this version when completing tasks or epics.
+ */
+export const APP_VERSION = '0.1.7';
+
+/**
+ * Version History:
+ * 0.1.7 - Add version display
+ * 0.1.6 - Add tap-to-place for Spelling Game (BUG-001 fix)
+ * 0.1.5 - Add production server for Render deployment
+ * 0.1.4 - Add backlog epic/task structure
+ * 0.1.3 - Add slash commands (epic-list, task-list, etc.)
+ * 0.1.2 - Spelling Game complete
+ * 0.1.1 - Memory Game complete
+ * 0.1.0 - Initial project setup
+ */

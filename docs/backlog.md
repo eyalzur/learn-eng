@@ -76,6 +76,7 @@ Track user learning progress across sessions and games.
 Improve existing games with new features.
 
 ### Tasks
+- [ ] Spelling Game: Reorder letters between boxes (drag/tap to swap placed letters)
 - [ ] Add difficulty levels (easy/medium/hard) to games
 - [ ] Add timer mode option
 - [ ] Add more hint types
@@ -109,7 +110,8 @@ Customize the learning experience per user.
 Platform and deployment improvements.
 
 ### Tasks
-- [ ] Deploy to static hosting (Vercel/Netlify/GitHub Pages)
+- [x] Add app version display (MAJOR.EPIC.TASK format, bottom corner of menu)
+- [x] Deploy to static hosting (Render)
 - [ ] Add PWA manifest for offline use
 - [ ] Add service worker for caching
 - [ ] Add basic analytics

@@ -1,4 +1,5 @@
 import React from 'react';
+import { APP_VERSION } from '../../constants/version';
 
 export type GameType = 'memory' | 'spelling' | null;
 
@@ -74,6 +75,8 @@ export const GameMenu: React.FC<GameMenuProps> = ({ onSelectGame }) => {
           </button>
         ))}
       </div>
+
+      <div className="app-version">v{APP_VERSION}</div>
     </div>
   );
 };
