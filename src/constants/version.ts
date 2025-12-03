@@ -8,10 +8,11 @@
  *
  * Update this version when completing tasks or epics.
  */
-export const APP_VERSION = '0.1.14';
+export const APP_VERSION = '0.1.15';
 
 /**
  * Version History:
+ * 0.1.15 - Spelling Game: letter boxes in single line (no wrapping)
  * 0.1.14 - Spelling Game: hint button always available
  * 0.1.13 - Memory Game: full-width grid background
  * 0.1.12 - Memory Game: vertical cards, even columns (2 or 4), centered
