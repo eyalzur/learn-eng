@@ -286,7 +286,6 @@ export const SpellingGame: React.FC<SpellingGameProps> = ({ onBack }) => {
                 <button
                   className="hint-button"
                   onClick={handleHint}
-                  disabled={showHint}
                 >
                   רמז (הגייה)
                 </button>
