@@ -19,7 +19,7 @@
 Make the web app optimized for mobile devices before deploying to a server.
 
 ### Tasks
-- [ ] Add mobile meta tags (PWA-ready, theme color, touch icons) to index.html
+- [x] Add mobile meta tags (PWA-ready, theme color, touch icons) to index.html
 - [ ] Add CSS mobile-first breakpoints and responsive base styles
 - [ ] Make Game Menu responsive (single column on narrow screens)
 - [ ] Make Memory Game cards responsive (fit mobile viewport)
