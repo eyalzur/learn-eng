@@ -28,10 +28,12 @@ learn-eng/
 | Language | TypeScript |
 | UI Framework | React 18 |
 | Bundler | Webpack 5 |
-| Styling | CSS (vanilla) |
+| Styling | CSS (vanilla, mobile-first) |
 | Dev Server | webpack-dev-server |
+| Prod Server | serve (static) |
 | Speech | Web Speech API |
 | Storage | localStorage |
+| Hosting | Render (static site) |
 
 ### Future (Mobile)
 | Layer | Technology |
@@ -65,6 +67,22 @@ learn-eng/
 ### 6. RTL with LTR exceptions
 **Decision**: Page is RTL for Hebrew, but English spelling uses LTR direction
 **Rationale**: Natural reading direction for each language
+
+### 7. Mobile-First CSS
+**Decision**: Use mobile-first responsive design with breakpoints at 480px, 768px, 1024px
+**Rationale**: Primary audience uses mobile devices, progressive enhancement for larger screens
+
+### 8. iOS Viewport Height Fix
+**Decision**: Use 100dvh with JS fallback (--vh CSS variable)
+**Rationale**: iOS Safari's 100vh doesn't account for browser chrome, dvh fixes this
+
+### 9. Safe Area Insets
+**Decision**: Use env(safe-area-inset-*) with viewport-fit=cover
+**Rationale**: Proper display on notched devices (iPhone X+)
+
+### 10. Minimum Tap Targets
+**Decision**: All interactive elements have minimum 48x48px touch area
+**Rationale**: Google Material Design guidelines for touch accessibility
 
 ## Data Models
 
@@ -116,8 +134,44 @@ type GameType = 'memory' | 'spelling' | null;
 | Key | Purpose |
 |-----|---------|
 | `learn-eng-word-count` | Memory game word count preference |
-| `learn-eng-record-{n}` | Memory game record for n pairs |
+| `learn-eng-records` | Memory game records (JSON: {wordCount: moves}) |
 | `learn-eng-spelling-streak-record` | Spelling game best streak |
+
+## CSS Architecture
+
+### Responsive Breakpoints
+```css
+/* Mobile: default (< 480px) */
+/* Large Mobile: 480px+ */
+@media (min-width: 480px) { ... }
+
+/* Tablet: 768px+ */
+@media (min-width: 768px) { ... }
+
+/* Desktop: 1024px+ */
+@media (min-width: 1024px) { ... }
+```
+
+### CSS Custom Properties
+```css
+:root {
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --tap-target-min: 44px;
+  --vh: 1vh; /* Set by JS for iOS Safari */
+}
+```
+
+### Viewport Height Fix (iOS Safari)
+```css
+/* Fallback chain for viewport height */
+height: 100vh;                           /* Base fallback */
+height: calc(var(--vh, 1vh) * 100);     /* JS fallback */
+height: 100dvh;                          /* Modern browsers */
+```
 
 ## Coding Conventions
 
