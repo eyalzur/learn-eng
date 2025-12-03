@@ -8,10 +8,11 @@
  *
  * Update this version when completing tasks or epics.
  */
-export const APP_VERSION = '0.1.8';
+export const APP_VERSION = '0.1.9';
 
 /**
  * Version History:
+ * 0.1.9 - Fix Memory Game grid overflow (BUG-002)
  * 0.1.8 - Add mobile meta tags and touch icons
  * 0.1.7 - Add version display
  * 0.1.6 - Add tap-to-place for Spelling Game (BUG-001 fix)

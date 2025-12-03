@@ -245,10 +245,9 @@ body {
 /* Cards Grid */
 .cards-grid {
   display: grid;
-  grid-auto-flow: column;
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   gap: 8px;
   padding: 12px;
   background: rgba(255, 255, 255, 0.1);
@@ -256,18 +255,20 @@ body {
   backdrop-filter: blur(10px);
   margin: 0 auto;
   flex: 1;
-  width: fit-content;
-  min-width: 200px;
+  width: 100%;
+  max-width: 600px;
+  overflow-y: auto;
 }
 
 /* Card Styles */
 .card {
   perspective: 1000px;
   cursor: pointer;
-  width: 100px;
-  height: calc((100vh - 200px) / 4 - 10px);
-  min-height: 80px;
-  max-height: 120px;
+  width: 100%;
+  min-width: 70px;
+  max-width: 110px;
+  aspect-ratio: 1 / 1.2;
+  justify-self: center;
 }
 
 .card-inner {
