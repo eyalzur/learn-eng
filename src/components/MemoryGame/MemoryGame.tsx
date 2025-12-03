@@ -224,7 +224,7 @@ export const MemoryGame: React.FC<MemoryGameProps> = ({ wordCount: defaultWordCo
         </div>
       )}
 
-      <div className={`cards-grid ${wordCount >= 8 ? 'cols-5' : ''}`}>
+      <div className={`cards-grid ${wordCount >= 8 ? 'cols-4' : ''}`}>
         {cards.map((card) => (
           <Card
             key={card.id}
