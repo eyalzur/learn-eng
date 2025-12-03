@@ -48,8 +48,8 @@ body {
 
 .games-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
+  grid-template-columns: 1fr; /* Single column on narrow screens */
+  gap: 12px;
   max-width: 500px;
   width: 100%;
 }
@@ -656,4 +656,138 @@ body {
 
 .stat.new-record-glow {
   animation: glow 0.5s ease-in-out infinite alternate;
+}
+
+/* ===================================
+   RESPONSIVE BREAKPOINTS (Mobile-First)
+   - Mobile: default (< 480px)
+   - Large Mobile: 480px+
+   - Tablet: 768px+
+   - Desktop: 1024px+
+   =================================== */
+
+/* CSS Custom Properties */
+:root {
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+
+  --tap-target-min: 44px;
+}
+
+/* Large Mobile (480px+) */
+@media (min-width: 480px) {
+  .menu-header h1 {
+    font-size: 2.8rem;
+  }
+
+  .games-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on larger screens */
+    gap: 15px;
+  }
+
+  .game-card {
+    padding: 25px;
+  }
+
+  .game-icon {
+    font-size: 3rem;
+  }
+}
+
+/* Tablet (768px+) */
+@media (min-width: 768px) {
+  .app {
+    padding: 20px 30px;
+  }
+
+  .menu-header h1 {
+    font-size: 3rem;
+  }
+
+  .menu-header p {
+    font-size: 1.4rem;
+  }
+
+  .games-grid {
+    gap: 20px;
+    max-width: 600px;
+  }
+
+  .game-card {
+    padding: 30px;
+  }
+
+  .game-icon {
+    font-size: 3.5rem;
+  }
+
+  .game-name {
+    font-size: 1.5rem;
+  }
+
+  /* Memory Game - larger cards on tablet */
+  .card {
+    width: 90px;
+    height: 110px;
+    max-width: 100px;
+    max-height: 120px;
+  }
+
+  /* Spelling Game - larger boxes on tablet */
+  .letter-box {
+    min-width: 40px;
+    max-width: 55px;
+    height: 55px;
+    font-size: 1.6rem;
+  }
+
+  .basket-letter {
+    width: 50px;
+    height: 60px;
+    font-size: 1.8rem;
+  }
+}
+
+/* Desktop (1024px+) */
+@media (min-width: 1024px) {
+  .app {
+    padding: 30px 50px;
+  }
+
+  .menu-header h1 {
+    font-size: 3.5rem;
+  }
+
+  .games-grid {
+    max-width: 700px;
+  }
+
+  .game-card {
+    padding: 35px;
+  }
+
+  /* Memory Game - even larger cards */
+  .card {
+    width: 100px;
+    height: 120px;
+    max-width: 110px;
+    max-height: 130px;
+  }
+
+  .card-content {
+    font-size: 1.3rem;
+  }
+
+  .card-transcription {
+    font-size: 0.8rem;
+  }
 }

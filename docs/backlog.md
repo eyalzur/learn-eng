@@ -20,8 +20,8 @@ Make the web app optimized for mobile devices before deploying to a server.
 
 ### Tasks
 - [x] Add mobile meta tags (PWA-ready, theme color, touch icons) to index.html
-- [ ] Add CSS mobile-first breakpoints and responsive base styles
-- [ ] Make Game Menu responsive (single column on narrow screens)
+- [x] Add CSS mobile-first breakpoints and responsive base styles
+- [x] Make Game Menu responsive (single column on narrow screens)
 - [x] Make Memory Game cards responsive (fit mobile viewport) **[BUG-002: Fixed]**
 - [x] Add tap-to-place interaction to Spelling Game (touch-friendly alternative to drag) **[BUG-001: Fixed]**
 - [ ] Increase tap target sizes to 48px minimum throughout

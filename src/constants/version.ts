@@ -8,10 +8,11 @@
  *
  * Update this version when completing tasks or epics.
  */
-export const APP_VERSION = '0.1.15';
+export const APP_VERSION = '0.1.16';
 
 /**
  * Version History:
+ * 0.1.16 - Add mobile-first CSS breakpoints and responsive styles
  * 0.1.15 - Spelling Game: letter boxes in single line (no wrapping)
  * 0.1.14 - Spelling Game: hint button always available
  * 0.1.13 - Memory Game: full-width grid background
