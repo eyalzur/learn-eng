@@ -48,6 +48,7 @@ export const SpellingGame: React.FC<SpellingGameProps> = ({ onBack }) => {
   const [letterBoxes, setLetterBoxes] = useState<(string | null)[]>([]);
   const [letterBasket, setLetterBasket] = useState<{ letter: string; id: string }[]>([]);
   const [draggedLetter, setDraggedLetter] = useState<{ letter: string; id: string } | null>(null);
+  const [selectedLetter, setSelectedLetter] = useState<{ letter: string; id: string } | null>(null);
   const [streak, setStreak] = useState<number>(0);
   const [record, setRecord] = useState<number>(getRecord());
   const [feedback, setFeedback] = useState<'correct' | 'incorrect' | null>(null);
@@ -65,6 +66,7 @@ export const SpellingGame: React.FC<SpellingGameProps> = ({ onBack }) => {
     setLetterBasket(allLetters.map((letter, i) => ({ letter, id: `${letter}-${i}-${Date.now()}` })));
     setFeedback(null);
     setShowHint(false);
+    setSelectedLetter(null);
   }, []);
 
   const initializeGame = useCallback(() => {
@@ -92,6 +94,38 @@ export const SpellingGame: React.FC<SpellingGameProps> = ({ onBack }) => {
     setDraggedLetter(null);
   };
 
+  // Tap-to-place: select a letter from basket
+  const handleSelectLetter = (letter: { letter: string; id: string }) => {
+    if (feedback) return;
+
+    // Toggle selection: if same letter clicked, deselect
+    if (selectedLetter?.id === letter.id) {
+      setSelectedLetter(null);
+    } else {
+      setSelectedLetter(letter);
+    }
+  };
+
+  // Place selected letter in a box
+  const placeSelectedLetter = (boxIndex: number) => {
+    if (!selectedLetter || feedback) return;
+
+    // If box already has a letter, return it to basket
+    if (letterBoxes[boxIndex] !== null) {
+      const oldLetter = letterBoxes[boxIndex]!;
+      setLetterBasket(prev => [...prev, { letter: oldLetter, id: `${oldLetter}-returned-${Date.now()}` }]);
+    }
+
+    // Place selected letter in box
+    const newBoxes = [...letterBoxes];
+    newBoxes[boxIndex] = selectedLetter.letter;
+    setLetterBoxes(newBoxes);
+
+    // Remove letter from basket
+    setLetterBasket(prev => prev.filter(l => l.id !== selectedLetter.id));
+    setSelectedLetter(null);
+  };
+
   const handleDropOnBox = (boxIndex: number) => {
     if (!draggedLetter || feedback) return;
 
@@ -115,9 +149,16 @@ export const SpellingGame: React.FC<SpellingGameProps> = ({ onBack }) => {
     setTimeout(() => setJustDropped(false), 100);
   };
 
-  const handleRemoveFromBox = (boxIndex: number) => {
+  const handleBoxClick = (boxIndex: number) => {
     if (feedback || justDropped) return;
 
+    // If a letter is selected, place it in this box
+    if (selectedLetter) {
+      placeSelectedLetter(boxIndex);
+      return;
+    }
+
+    // Otherwise, remove existing letter from box
     const letter = letterBoxes[boxIndex];
     if (letter) {
       // Return letter to basket
@@ -223,10 +264,10 @@ export const SpellingGame: React.FC<SpellingGameProps> = ({ onBack }) => {
             {letterBoxes.map((letter, index) => (
               <div
                 key={index}
-                className={`letter-box ${letter ? 'filled' : ''} ${feedback || ''}`}
+                className={`letter-box ${letter ? 'filled' : ''} ${feedback || ''} ${selectedLetter && !letter ? 'awaiting' : ''}`}
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={() => handleDropOnBox(index)}
-                onClick={() => handleRemoveFromBox(index)}
+                onClick={() => handleBoxClick(index)}
               >
                 {letter?.toUpperCase()}
               </div>
@@ -268,10 +309,11 @@ export const SpellingGame: React.FC<SpellingGameProps> = ({ onBack }) => {
             {letterBasket.map((item) => (
               <div
                 key={item.id}
-                className={`basket-letter ${draggedLetter?.id === item.id ? 'dragging' : ''}`}
+                className={`basket-letter ${draggedLetter?.id === item.id ? 'dragging' : ''} ${selectedLetter?.id === item.id ? 'selected' : ''}`}
                 draggable={!feedback}
                 onDragStart={() => handleDragStart(item)}
                 onDragEnd={handleDragEnd}
+                onClick={() => handleSelectLetter(item)}
               >
                 {item.letter.toUpperCase()}
               </div>
@@ -281,7 +323,7 @@ export const SpellingGame: React.FC<SpellingGameProps> = ({ onBack }) => {
       )}
 
       <div className="game-instructions">
-        <p>גרור אותיות מהסל למשבצות כדי לאיית את המילה באנגלית. לחץ על משבצת להחזיר אות.</p>
+        <p>לחץ על אות ואז על משבצת כדי למקם אותה. לחץ על משבצת מלאה להחזיר את האות.</p>
       </div>
     </div>
   );

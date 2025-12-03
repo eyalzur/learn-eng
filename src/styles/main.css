@@ -537,6 +537,27 @@ body {
   transform: scale(0.95);
 }
 
+.basket-letter.selected {
+  background: linear-gradient(145deg, #f39c12, #e67e22);
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(243, 156, 18, 0.6);
+}
+
+.letter-box.awaiting {
+  border-color: rgba(243, 156, 18, 0.8);
+  background: rgba(243, 156, 18, 0.2);
+  animation: pulse-awaiting 1s ease-in-out infinite;
+}
+
+@keyframes pulse-awaiting {
+  0%, 100% {
+    border-color: rgba(243, 156, 18, 0.5);
+  }
+  50% {
+    border-color: rgba(243, 156, 18, 1);
+  }
+}
+
 .correct-answer {
   color: #ff6b6b;
   font-size: 1rem;

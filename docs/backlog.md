@@ -23,7 +23,7 @@ Make the web app optimized for mobile devices before deploying to a server.
 - [ ] Add CSS mobile-first breakpoints and responsive base styles
 - [ ] Make Game Menu responsive (single column on narrow screens)
 - [ ] Make Memory Game cards responsive (fit mobile viewport)
-- [ ] Add tap-to-place interaction to Spelling Game (touch-friendly alternative to drag)
+- [x] Add tap-to-place interaction to Spelling Game (touch-friendly alternative to drag) **[BUG-001: Fixed]**
 - [ ] Increase tap target sizes to 48px minimum throughout
 - [ ] Fix iOS Safari viewport height issues (use dvh or JS fallback)
 - [ ] Test and fix issues on mobile viewport
