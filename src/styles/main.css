@@ -19,6 +19,11 @@ body {
   height: calc(var(--vh, 1vh) * 100); /* JS-calculated fallback */
   height: 100dvh; /* Dynamic viewport height */
   padding: 10px 15px;
+  /* Safe area insets for notched devices */
+  padding-top: max(10px, env(safe-area-inset-top));
+  padding-bottom: max(10px, env(safe-area-inset-bottom));
+  padding-left: max(15px, env(safe-area-inset-left));
+  padding-right: max(15px, env(safe-area-inset-right));
   display: flex;
   flex-direction: column;
 }

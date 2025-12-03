@@ -26,7 +26,7 @@ Make the web app optimized for mobile devices before deploying to a server.
 - [x] Add tap-to-place interaction to Spelling Game (touch-friendly alternative to drag) **[BUG-001: Fixed]**
 - [x] Increase tap target sizes to 48px minimum throughout
 - [x] Fix iOS Safari viewport height issues (use dvh or JS fallback)
-- [ ] Test and fix issues on mobile viewport
+- [x] Test and fix issues on mobile viewport
 
 ---
 
