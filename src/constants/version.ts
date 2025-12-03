@@ -8,10 +8,11 @@
  *
  * Update this version when completing tasks or epics.
  */
-export const APP_VERSION = '0.1.12';
+export const APP_VERSION = '0.1.13';
 
 /**
  * Version History:
+ * 0.1.13 - Memory Game: full-width grid background
  * 0.1.12 - Memory Game: vertical cards, even columns (2 or 4), centered
  * 0.1.11 - Memory Game: bigger cards, 3 columns (4 for 8+ pairs)
  * 0.1.10 - Improve Memory Game card layout (horizontal, compact)
