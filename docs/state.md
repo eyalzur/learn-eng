@@ -1,7 +1,7 @@
 # Current State
 
 ## Last Updated
-2025-12-04 22:45
+2025-12-04 23:30
 
 ## What's Working
 - [x] Project setup (Webpack + React + TypeScript)
@@ -10,7 +10,7 @@
 - [x] Spelling game with drag-and-drop letters
 - [x] Spelling game with tap-to-place (mobile-friendly)
 - [x] Flashcards game with spaced repetition
-- [x] Dictionary with 20 beginner words (English, Hebrew with nikud, transcription)
+- [x] Dictionary with 110 words across 8 categories
 - [x] Text-to-speech for word pronunciation
 - [x] Record tracking (localStorage)
 - [x] Responsive design with RTL support
@@ -20,7 +20,8 @@
 - [x] 48px minimum tap targets throughout
 - [x] Dev server running on port 4000
 - [x] Production deployment on Render
-- [x] App version display (v0.1.22)
+- [x] App version display (v0.1.24)
+- [x] Agent-based slash commands for parallel development
 - [x] Git repository with feature branches
 
 ## Active Games
@@ -48,7 +49,7 @@
 - Question language toggle (Hebrew or English)
 - Speaker button plays English pronunciation
 - Spaced repetition with 5-box Leitner system
-- 10 cards per session
+- Continuous play (no session/round limits)
 - Overall mastery progress tracking
 - Settings and progress persisted in localStorage
 
@@ -66,19 +67,17 @@ npm start
 ```
 
 ## Current Version
-**v0.1.22** - Flashcards game with multiple choice quiz
+**v0.1.24** - Continuous Flashcards play (no rounds)
 
 ## Known Issues
 - Commits ahead of origin/main (need to push)
 
 ## Recent Changes (This Session)
-- Completed Flashcards game with multiple choice quiz
-  - Multiple choice answers (2-6 configurable)
-  - Question language toggle (Hebrew/English)
-  - Speaker button always plays English pronunciation
-  - 5-box Leitner spaced repetition system
-  - Settings panel for configuration
-  - Viewport-constrained layout (no overflow)
+- Removed session/round system from Flashcards (continuous play)
+- Created agent-based slash commands for parallel development:
+  - `/bug-report-agent` - Spawns agent to document bugs with technical analysis
+  - `/feature-design-agent` - Spawns agent to research and design features
+  - `/implement-agent` - Spawns agent to implement from bug/feature docs
 
 ## File Structure
 ```
@@ -101,9 +100,15 @@ src/
 
 .claude/commands/
 ├── bug-report.md         # Document bugs with QA investigation
+├── bug-report-agent.md   # Spawn agent for bug documentation
+├── feature-design.md     # Design new features
+├── feature-design-agent.md # Spawn agent for feature design
+├── implement-agent.md    # Spawn agent to implement bug/feature
 ├── next-task.md          # Get top priority task with context
 ├── prioritize-backlog.md # Review priorities as PM/QA/Tech Lead
 ├── save-proj.md          # Save project state to docs
 ├── start-session.md      # Initialize session with project context
 └── ...                   # Other commands
+
+docs/features/            # Feature design documents (for implement-agent)
 ```

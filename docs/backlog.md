@@ -116,6 +116,7 @@ Platform and deployment improvements.
 ### Tasks
 - [x] Add app version display (MAJOR.EPIC.TASK format, bottom corner of menu)
 - [x] Deploy to static hosting (Render)
+- [x] Add agent-based slash commands for parallel development
 - [ ] Add PWA manifest for offline use
 - [ ] Add service worker for caching
 - [ ] Add basic analytics
