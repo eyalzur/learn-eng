@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MemoryGame } from './components/MemoryGame';
 import { SpellingGame } from './components/SpellingGame';
+import { FlashcardsGame } from './components/FlashcardsGame';
 import { GameMenu, GameType } from './components/GameMenu';
 import './styles/main.css';
 
@@ -38,6 +39,9 @@ export const App: React.FC = () => {
       )}
       {currentGame === 'spelling' && (
         <SpellingGame onBack={handleBackToMenu} />
+      )}
+      {currentGame === 'flashcards' && (
+        <FlashcardsGame onBack={handleBackToMenu} />
       )}
     </div>
   );

@@ -36,9 +36,17 @@ An English learning application for Hebrew speakers, focusing on vocabulary acqu
 - Extra decoy letters added for challenge
 - Record tracking for best streak
 
+### Flashcards Game
+- Learn words with flip cards (Hebrew prompt, English answer)
+- Spaced repetition system (5-box Leitner method)
+- Track "knew it" vs "didn't know" responses
+- Cards in lower boxes appear more frequently
+- Overall mastery progress tracking
+- 10 cards per session
+
 ## Current Scope
 - Web application (React + Webpack)
-- Two playable games: Memory and Spelling
+- Three playable games: Memory, Spelling, and Flashcards
 - Beginner vocabulary (20 common nouns)
 - RTL support for Hebrew with LTR for English spelling
 

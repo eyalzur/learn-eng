@@ -39,7 +39,7 @@ Add more interactive games to expand learning methods.
 - [x] Spelling Game - Drag-and-drop letter spelling
 
 ### Tasks
-- [ ] Flashcards game with spaced repetition
+- [x] Flashcards game with spaced repetition
 - [ ] Word Quiz game (multiple choice)
 - [ ] Hangman game
 

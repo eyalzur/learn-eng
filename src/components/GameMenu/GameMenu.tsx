@@ -1,7 +1,7 @@
 import React from 'react';
 import { APP_VERSION } from '../../constants/version';
 
-export type GameType = 'memory' | 'spelling' | null;
+export type GameType = 'memory' | 'spelling' | 'flashcards' | null;
 
 interface GameInfo {
   id: GameType;
@@ -22,12 +22,12 @@ const GAMES: GameInfo[] = [
     available: true,
   },
   {
-    id: null,
+    id: 'flashcards',
     name: 'Flashcards',
     nameHe: 'כרטיסיות',
     description: 'למד מילים עם כרטיסיות',
     icon: '📇',
-    available: false,
+    available: true,
   },
   {
     id: 'spelling',

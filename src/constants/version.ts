@@ -8,10 +8,12 @@
  *
  * Update this version when completing tasks or epics.
  */
-export const APP_VERSION = '0.1.20';
+export const APP_VERSION = '0.1.22';
 
 /**
  * Version History:
+ * 0.1.22 - Flashcards game with multiple choice quiz
+ * 0.1.21 - Add Flashcards game with spaced repetition
  * 0.1.20 - Fix Memory Game vertical overflow on mobile (BUG-003)
  * 0.1.19 - Add safe-area-inset support for notched devices
  * 0.1.18 - Fix iOS Safari viewport height issues (dvh + JS fallback)

@@ -676,6 +676,354 @@ body {
   animation: glow 0.5s ease-in-out infinite alternate;
 }
 
+/* Flashcards Game */
+.flashcards-game {
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.flashcard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 15px;
+  flex-shrink: 0;
+}
+
+.question-card {
+  width: 100%;
+  max-width: 300px;
+  padding: 15px;
+  background: linear-gradient(145deg, #3498db, #2980b9);
+  border-radius: 16px;
+  color: white;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.question-label {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-bottom: 10px;
+}
+
+.question-word {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.question-transcription {
+  font-size: 1rem;
+  opacity: 0.8;
+  margin-bottom: 10px;
+}
+
+.speak-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  margin-top: 10px;
+  font-size: 1.2rem;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.speak-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.box-indicator {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 12px;
+  border-radius: 12px;
+}
+
+/* Multiple Choice Grid */
+.choices-grid {
+  display: grid;
+  gap: 10px;
+  padding: 15px;
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  align-content: start;
+}
+
+.choices-2 { grid-template-columns: 1fr; }
+.choices-3 { grid-template-columns: 1fr; }
+.choices-4 { grid-template-columns: 1fr 1fr; }
+.choices-5 { grid-template-columns: 1fr 1fr; }
+.choices-6 { grid-template-columns: 1fr 1fr; }
+
+.choice-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 20px;
+  min-height: 55px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  color: white;
+  font-family: 'Rubik', sans-serif;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.choice-button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.choice-button:disabled {
+  cursor: default;
+}
+
+.choice-button.correct {
+  background: rgba(39, 174, 96, 0.6);
+  border-color: #27ae60;
+}
+
+.choice-button.incorrect {
+  background: rgba(231, 76, 60, 0.6);
+  border-color: #e74c3c;
+}
+
+.choice-text {
+  text-align: center;
+}
+
+.next-section {
+  padding: 10px 15px;
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Settings Panel */
+.settings-panel {
+  padding: 20px;
+  color: white;
+}
+
+.settings-panel h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+}
+
+.setting-group {
+  margin-bottom: 20px;
+}
+
+.setting-group label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.choice-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.choice-btn {
+  padding: 10px 20px;
+  min-width: 50px;
+  min-height: 44px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  color: white;
+  font-family: 'Rubik', sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.choice-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.choice-btn.active {
+  background: #3498db;
+  border-color: #3498db;
+}
+
+.settings-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.correct-stat strong {
+  color: #2ecc71;
+}
+
+.incorrect-stat strong {
+  color: #e74c3c;
+}
+
+/* Session Complete */
+.session-complete {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  text-align: center;
+  color: white;
+}
+
+.session-complete h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.session-results {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.result-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 20px 30px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.result-item.knew {
+  border: 2px solid #27ae60;
+}
+
+.result-item.didnt-know {
+  border: 2px solid #e74c3c;
+}
+
+.result-icon {
+  font-size: 1.5rem;
+}
+
+.result-count {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.result-label {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.mastery-progress {
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 30px;
+}
+
+.mastery-label {
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+.mastery-bar {
+  height: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.mastery-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #f39c12, #e67e22);
+  border-radius: 6px;
+  transition: width 0.5s ease;
+}
+
+.mastery-text {
+  font-size: 0.85rem;
+  margin-top: 8px;
+  opacity: 0.7;
+}
+
+.session-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 250px;
+}
+
+.action-button {
+  padding: 15px 30px;
+  min-height: 50px;
+  border: none;
+  border-radius: 25px;
+  font-family: 'Rubik', sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.action-button.primary {
+  background: #4CAF50;
+  color: white;
+}
+
+.action-button.primary:hover {
+  background: #45a049;
+  transform: translateY(-2px);
+}
+
+.action-button.secondary {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.action-button.secondary:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.knew-stat strong {
+  color: #2ecc71;
+}
+
+.didnt-know-stat strong {
+  color: #e74c3c;
+}
+
+.loading {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+}
+
 /* ===================================
    RESPONSIVE BREAKPOINTS (Mobile-First)
    - Mobile: default (< 480px)

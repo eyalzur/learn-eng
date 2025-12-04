@@ -136,6 +136,7 @@ type GameType = 'memory' | 'spelling' | null;
 | `learn-eng-word-count` | Memory game word count preference |
 | `learn-eng-records` | Memory game records (JSON: {wordCount: moves}) |
 | `learn-eng-spelling-streak-record` | Spelling game best streak |
+| `learn-eng-flashcards-progress` | Flashcards spaced repetition state (JSON: CardState[]) |
 
 ## CSS Architecture
 

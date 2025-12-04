@@ -1,7 +1,7 @@
 # Current State
 
 ## Last Updated
-2025-12-04 22:15
+2025-12-04 22:45
 
 ## What's Working
 - [x] Project setup (Webpack + React + TypeScript)
@@ -9,6 +9,7 @@
 - [x] Memory game with card flip animation
 - [x] Spelling game with drag-and-drop letters
 - [x] Spelling game with tap-to-place (mobile-friendly)
+- [x] Flashcards game with spaced repetition
 - [x] Dictionary with 20 beginner words (English, Hebrew with nikud, transcription)
 - [x] Text-to-speech for word pronunciation
 - [x] Record tracking (localStorage)
@@ -19,7 +20,7 @@
 - [x] 48px minimum tap targets throughout
 - [x] Dev server running on port 4000
 - [x] Production deployment on Render
-- [x] App version display (v0.1.19)
+- [x] App version display (v0.1.22)
 - [x] Git repository with feature branches
 
 ## Active Games
@@ -41,6 +42,16 @@
 - Single-line letter boxes (no wrapping)
 - LTR direction for English letter boxes
 
+### Flashcards Game
+- Multiple choice quiz to learn English words
+- Configurable number of answer choices (2-6)
+- Question language toggle (Hebrew or English)
+- Speaker button plays English pronunciation
+- Spaced repetition with 5-box Leitner system
+- 10 cards per session
+- Overall mastery progress tracking
+- Settings and progress persisted in localStorage
+
 ## Running the App
 ```bash
 # Development
@@ -55,19 +66,19 @@ npm start
 ```
 
 ## Current Version
-**v0.1.20** - Epic 1 (Mobile-First UX) complete
+**v0.1.22** - Flashcards game with multiple choice quiz
 
 ## Known Issues
 - Commits ahead of origin/main (need to push)
 
 ## Recent Changes (This Session)
-- BUG-003: Fixed Memory Game vertical overflow on mobile
-  - Implemented fixed-width grid columns (not 1fr)
-  - 4 pairs: 2 cols × 80px, 5 pairs: 3 cols × 80px
-  - 6-8 pairs: 4 cols × 75px, 9-10 pairs: 5 cols × 60px
-  - Cards use aspect-ratio 4/5 for consistent proportions
-  - Responsive sizes for tablet (90-100px) and desktop (100-110px)
-  - Grid uses width: fit-content to center naturally
+- Completed Flashcards game with multiple choice quiz
+  - Multiple choice answers (2-6 configurable)
+  - Question language toggle (Hebrew/English)
+  - Speaker button always plays English pronunciation
+  - 5-box Leitner spaced repetition system
+  - Settings panel for configuration
+  - Viewport-constrained layout (no overflow)
 
 ## File Structure
 ```
@@ -75,7 +86,8 @@ src/
 ├── components/
 │   ├── GameMenu/         # Game selection screen
 │   ├── MemoryGame/       # Memory matching game
-│   └── SpellingGame/     # Letter spelling game
+│   ├── SpellingGame/     # Letter spelling game
+│   └── FlashcardsGame/   # Spaced repetition flashcards
 ├── constants/
 │   └── version.ts        # App version tracking
 ├── data/
