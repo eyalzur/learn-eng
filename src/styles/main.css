@@ -257,33 +257,38 @@ body {
 /* Cards Grid */
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(2, auto);
-  gap: 10px;
-  padding: 12px;
+  grid-template-columns: repeat(2, 80px);
+  gap: 8px;
+  padding: 10px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   backdrop-filter: blur(10px);
   margin: 0 auto;
-  flex: 1;
-  width: 100%;
-  justify-content: center;
+  width: fit-content;
   justify-items: center;
-  align-content: center;
 }
 
-/* 4 columns for 6+ pairs */
+/* 3 columns for 5 pairs */
+.cards-grid.cols-3 {
+  grid-template-columns: repeat(3, 80px);
+}
+
+/* 4 columns for 6-8 pairs */
 .cards-grid.cols-4 {
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: repeat(4, 75px);
+}
+
+/* 5 columns for 9-10 pairs */
+.cards-grid.cols-5 {
+  grid-template-columns: repeat(5, 60px);
 }
 
 /* Card Styles */
 .card {
   perspective: 1000px;
   cursor: pointer;
-  width: 80px;
-  height: 100px;
-  max-width: 90px;
-  max-height: 110px;
+  width: 100%;
+  aspect-ratio: 4 / 5;
 }
 
 .card-inner {
@@ -748,11 +753,21 @@ body {
   }
 
   /* Memory Game - larger cards on tablet */
-  .card {
-    width: 90px;
-    height: 110px;
-    max-width: 100px;
-    max-height: 120px;
+  .cards-grid {
+    grid-template-columns: repeat(2, 100px);
+    gap: 10px;
+  }
+
+  .cards-grid.cols-3 {
+    grid-template-columns: repeat(3, 95px);
+  }
+
+  .cards-grid.cols-4 {
+    grid-template-columns: repeat(4, 90px);
+  }
+
+  .cards-grid.cols-5 {
+    grid-template-columns: repeat(5, 75px);
   }
 
   /* Spelling Game - larger boxes on tablet */
@@ -788,19 +803,29 @@ body {
     padding: 35px;
   }
 
-  /* Memory Game - even larger cards */
-  .card {
-    width: 100px;
-    height: 120px;
-    max-width: 110px;
-    max-height: 130px;
+  /* Memory Game - larger cards on desktop */
+  .cards-grid {
+    grid-template-columns: repeat(2, 110px);
+    gap: 12px;
+  }
+
+  .cards-grid.cols-3 {
+    grid-template-columns: repeat(3, 105px);
+  }
+
+  .cards-grid.cols-4 {
+    grid-template-columns: repeat(4, 100px);
+  }
+
+  .cards-grid.cols-5 {
+    grid-template-columns: repeat(5, 85px);
   }
 
   .card-content {
-    font-size: 1.3rem;
+    font-size: 1rem;
   }
 
   .card-transcription {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
 }

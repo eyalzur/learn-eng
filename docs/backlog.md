@@ -27,6 +27,7 @@ Make the web app optimized for mobile devices before deploying to a server.
 - [x] Increase tap target sizes to 48px minimum throughout
 - [x] Fix iOS Safari viewport height issues (use dvh or JS fallback)
 - [x] Test and fix issues on mobile viewport
+- [x] Fix Memory Game vertical overflow on mobile (5 pairs shows 2 cols × 5 rows, cards cut off) **[BUG-003: Fixed]**
 
 ---
 

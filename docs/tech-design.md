@@ -219,3 +219,28 @@ export const MyComponent: React.FC<Props> = ({ ... }) => {
 - Unit tests: Jest + React Testing Library
 - E2E tests: Playwright (consideration)
 - Manual testing: Primary method currently
+
+## Git Workflow
+
+### Branch Strategy
+All work must be done on dedicated feature branches, never directly on `main`.
+
+**Branch naming conventions:**
+- Features: `feat/<short-description>` (e.g., `feat/flashcards-game`)
+- Bug fixes: `fix/<bug-id>-<short-description>` (e.g., `fix/bug-003-memory-overflow`)
+- Refactoring: `refactor/<short-description>`
+- Documentation: `docs/<short-description>`
+
+### Workflow Steps
+1. **Create branch**: `git checkout -b <branch-name>` before starting work
+2. **Make changes**: Implement the feature/fix
+3. **Commit**: Commit changes with descriptive message
+4. **Merge to main**: `git checkout main && git merge <branch-name>`
+5. **Push**: User pushes to remote repository
+6. **Clean up**: Delete the feature branch after merge (optional)
+
+### Commit Messages
+- Use present tense ("Add feature" not "Added feature")
+- Start with type: `feat:`, `fix:`, `docs:`, `refactor:`, `style:`, `test:`
+- Keep first line under 72 characters
+- Include `[BUG-XXX]` reference for bug fixes
