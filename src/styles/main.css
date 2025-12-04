@@ -33,32 +33,34 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   height: 100%;
-  padding: 20px;
+  padding: 15px;
+  overflow-y: auto;
 }
 
 .menu-header {
   text-align: center;
   color: white;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
+  flex-shrink: 0;
 }
 
 .menu-header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
+  font-size: 2rem;
+  margin-bottom: 5px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .menu-header p {
-  font-size: 1.2rem;
+  font-size: 1rem;
   opacity: 0.9;
 }
 
 .games-grid {
   display: grid;
   grid-template-columns: 1fr; /* Single column on narrow screens */
-  gap: 12px;
+  gap: 8px;
   max-width: 500px;
   width: 100%;
 }
@@ -67,7 +69,7 @@ body {
   background: rgba(255, 255, 255, 0.15);
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 15px;
-  padding: 20px;
+  padding: 12px 15px;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
@@ -91,24 +93,24 @@ body {
 }
 
 .game-icon {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
+  font-size: 2rem;
+  margin-bottom: 5px;
 }
 
 .game-name {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 700;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
 }
 
 .game-name-en {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   opacity: 0.8;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .game-description {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   opacity: 0.7;
 }
 
