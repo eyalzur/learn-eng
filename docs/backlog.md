@@ -37,10 +37,9 @@ Add more interactive games to expand learning methods.
 ### Completed
 - [x] Memory Game - Match English-Hebrew pairs
 - [x] Spelling Game - Drag-and-drop letter spelling
+- [x] Flashcards game with spaced repetition and multiple choice quiz
 
 ### Tasks
-- [x] Flashcards game with spaced repetition
-- [ ] Word Quiz game (multiple choice)
 - [ ] Hangman game
 
 ---
@@ -48,15 +47,19 @@ Add more interactive games to expand learning methods.
 ## [P1] Vocabulary Expansion
 Grow the dictionary and organize content for better learning.
 
+### Completed
+- [x] Define category schema (animals, food, colors, numbers, body parts, etc.)
+- [x] Organize existing 20 words into categories
+- [x] Add animal words (15 words)
+- [x] Add food words (15 words)
+- [x] Add color words (12 words)
+- [x] Add number words (1-20)
+- [x] Add body parts words (12 words)
+- [x] Add common verbs (12 words)
+- [x] Add nature words (12 words)
+- [x] Add household words (12 words)
+
 ### Tasks
-- [ ] Define category schema (animals, food, colors, numbers, body parts, etc.)
-- [ ] Organize existing 20 words into categories
-- [ ] Add animal words (10+ words)
-- [ ] Add food words (10+ words)
-- [ ] Add color words (10+ words)
-- [ ] Add number words (1-20)
-- [ ] Add body parts words (10+ words)
-- [ ] Add common verbs (10+ words)
 - [ ] Add example sentences to words
 
 ---
