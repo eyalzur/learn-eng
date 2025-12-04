@@ -16,7 +16,6 @@ type QuestionLanguage = 'hebrew' | 'english';
 
 const STORAGE_KEY = 'learn-eng-flashcards-progress';
 const SETTINGS_KEY = 'learn-eng-flashcards-settings';
-const CARDS_PER_SESSION = 10;
 
 // Get initial card states from localStorage or create new ones
 const getStoredProgress = (): CardState[] => {
@@ -47,10 +46,11 @@ const saveSettings = (choiceCount: number, questionLang: QuestionLanguage) => {
   localStorage.setItem(SETTINGS_KEY, JSON.stringify({ choiceCount, questionLang }));
 };
 
-// Select cards for this session using spaced repetition
-const selectSessionCards = (allCards: CardState[], count: number): CardState[] => {
+// Select next card using spaced repetition (lower score = higher priority)
+const selectNextCard = (allCards: CardState[], excludeId?: string): CardState => {
   const now = Date.now();
-  const scored = allCards.map((card) => {
+  const candidates = excludeId ? allCards.filter(c => c.word.id !== excludeId) : allCards;
+  const scored = candidates.map((card) => {
     const boxWeight = card.box;
     const ageInHours = (now - card.lastSeen) / (1000 * 60 * 60);
     const intervalHours = Math.pow(2, card.box - 1);
@@ -58,7 +58,7 @@ const selectSessionCards = (allCards: CardState[], count: number): CardState[] =
     return { card, score: boxWeight - urgency };
   });
   scored.sort((a, b) => a.score - b.score);
-  return scored.slice(0, count).map((s) => s.card);
+  return scored[0].card;
 };
 
 // Get random distractor words (not the correct answer)
@@ -70,13 +70,10 @@ const getDistractors = (correctWord: Word, count: number): Word[] => {
 
 export const FlashcardsGame: React.FC<FlashcardsGameProps> = ({ onBack }) => {
   const [allCards, setAllCards] = useState<CardState[]>(getStoredProgress);
-  const [sessionCards, setSessionCards] = useState<CardState[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentCard, setCurrentCard] = useState<CardState | null>(null);
   const [choices, setChoices] = useState<Word[]>([]);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
-  const [sessionStats, setSessionStats] = useState({ correct: 0, incorrect: 0 });
-  const [isSessionComplete, setIsSessionComplete] = useState(false);
 
   // Settings
   const storedSettings = getStoredSettings();
@@ -84,26 +81,24 @@ export const FlashcardsGame: React.FC<FlashcardsGameProps> = ({ onBack }) => {
   const [questionLang, setQuestionLang] = useState<QuestionLanguage>(storedSettings.questionLang);
   const [showSettings, setShowSettings] = useState(false);
 
-  // Initialize session
+  // Initialize first card
   useEffect(() => {
-    const selected = selectSessionCards(allCards, CARDS_PER_SESSION);
-    setSessionCards(selected);
-  }, []);
+    if (!currentCard && allCards.length > 0) {
+      setCurrentCard(selectNextCard(allCards));
+    }
+  }, [allCards]);
 
   // Generate choices when card changes
   useEffect(() => {
-    if (sessionCards.length > 0 && currentIndex < sessionCards.length) {
-      const currentWord = sessionCards[currentIndex].word;
-      const distractors = getDistractors(currentWord, choiceCount - 1);
-      const allChoices = [currentWord, ...distractors];
+    if (currentCard) {
+      const distractors = getDistractors(currentCard.word, choiceCount - 1);
+      const allChoices = [currentCard.word, ...distractors];
       // Shuffle choices
       setChoices(allChoices.sort(() => Math.random() - 0.5));
       setSelectedAnswer(null);
       setIsAnswered(false);
     }
-  }, [currentIndex, sessionCards, choiceCount]);
-
-  const currentCard = sessionCards[currentIndex];
+  }, [currentCard, choiceCount]);
 
   const handleSpeak = useCallback((word: Word, lang: 'en' | 'he') => {
     const text = lang === 'en' ? word.english : word.hebrew;
@@ -134,29 +129,13 @@ export const FlashcardsGame: React.FC<FlashcardsGameProps> = ({ onBack }) => {
 
     setAllCards(updatedCards);
     saveProgress(updatedCards);
-
-    setSessionStats((prev) => ({
-      correct: prev.correct + (isCorrect ? 1 : 0),
-      incorrect: prev.incorrect + (isCorrect ? 0 : 1),
-    }));
   }, [isAnswered, currentCard, allCards, questionLang]);
 
   const handleNext = useCallback(() => {
-    if (currentIndex < sessionCards.length - 1) {
-      setCurrentIndex((prev) => prev + 1);
-    } else {
-      setIsSessionComplete(true);
-    }
-  }, [currentIndex, sessionCards.length]);
-
-  const startNewSession = useCallback(() => {
-    const selected = selectSessionCards(allCards, CARDS_PER_SESSION);
-    setSessionCards(selected);
-    setCurrentIndex(0);
-    setSessionStats({ correct: 0, incorrect: 0 });
-    setIsSessionComplete(false);
-    setShowSettings(false);
-  }, [allCards]);
+    // Select next card, avoiding the current one
+    const nextCard = selectNextCard(allCards, currentCard?.word.id);
+    setCurrentCard(nextCard);
+  }, [allCards, currentCard]);
 
   const handleSettingsChange = (newChoiceCount: number, newQuestionLang: QuestionLanguage) => {
     setChoiceCount(newChoiceCount);
@@ -172,7 +151,8 @@ export const FlashcardsGame: React.FC<FlashcardsGameProps> = ({ onBack }) => {
     }));
     setAllCards(reset);
     saveProgress(reset);
-    startNewSession();
+    setCurrentCard(selectNextCard(reset));
+    setShowSettings(false);
   }, []);
 
   // Calculate mastery
@@ -180,7 +160,7 @@ export const FlashcardsGame: React.FC<FlashcardsGameProps> = ({ onBack }) => {
   const totalCount = allCards.length;
   const masteryPercent = Math.round((masteredCount / totalCount) * 100);
 
-  if (sessionCards.length === 0) {
+  if (!currentCard) {
     return (
       <div className="flashcards-game">
         <div className="game-header">
@@ -196,7 +176,7 @@ export const FlashcardsGame: React.FC<FlashcardsGameProps> = ({ onBack }) => {
     );
   }
 
-  if (showSettings || isSessionComplete) {
+  if (showSettings) {
     return (
       <div className="flashcards-game">
         <div className="game-header">
@@ -207,37 +187,6 @@ export const FlashcardsGame: React.FC<FlashcardsGameProps> = ({ onBack }) => {
           )}
           <h1>כרטיסיות</h1>
         </div>
-
-        {isSessionComplete && (
-          <div className="session-complete">
-            <h2>סיימת את הסבב!</h2>
-            <div className="session-results">
-              <div className="result-item correct">
-                <span className="result-icon">✓</span>
-                <span className="result-count">{sessionStats.correct}</span>
-                <span className="result-label">נכון</span>
-              </div>
-              <div className="result-item incorrect">
-                <span className="result-icon">✗</span>
-                <span className="result-count">{sessionStats.incorrect}</span>
-                <span className="result-label">לא נכון</span>
-              </div>
-            </div>
-
-            <div className="mastery-progress">
-              <div className="mastery-label">התקדמות כללית</div>
-              <div className="mastery-bar">
-                <div
-                  className="mastery-fill"
-                  style={{ width: `${masteryPercent}%` }}
-                />
-              </div>
-              <div className="mastery-text">
-                {masteredCount} / {totalCount} מילים נלמדו ({masteryPercent}%)
-              </div>
-            </div>
-          </div>
-        )}
 
         <div className="settings-panel">
           <h3>הגדרות</h3>
@@ -275,15 +224,26 @@ export const FlashcardsGame: React.FC<FlashcardsGameProps> = ({ onBack }) => {
             </div>
           </div>
 
+          <div className="mastery-progress">
+            <div className="mastery-label">התקדמות כללית</div>
+            <div className="mastery-bar">
+              <div
+                className="mastery-fill"
+                style={{ width: `${masteryPercent}%` }}
+              />
+            </div>
+            <div className="mastery-text">
+              {masteredCount} / {totalCount} מילים נלמדו ({masteryPercent}%)
+            </div>
+          </div>
+
           <div className="session-actions">
-            <button className="action-button primary" onClick={startNewSession}>
-              {isSessionComplete ? 'סבב נוסף' : 'התחל'}
+            <button className="action-button primary" onClick={() => setShowSettings(false)}>
+              סגור
             </button>
-            {isSessionComplete && (
-              <button className="action-button secondary" onClick={resetAllProgress}>
-                אפס התקדמות
-              </button>
-            )}
+            <button className="action-button secondary" onClick={resetAllProgress}>
+              אפס התקדמות
+            </button>
           </div>
         </div>
       </div>
@@ -306,14 +266,8 @@ export const FlashcardsGame: React.FC<FlashcardsGameProps> = ({ onBack }) => {
         )}
         <h1>כרטיסיות</h1>
         <div className="game-stats">
-          <span className="stat">
-            {currentIndex + 1}/{sessionCards.length}
-          </span>
-          <span className="stat correct-stat">
-            ✓ <strong>{sessionStats.correct}</strong>
-          </span>
-          <span className="stat incorrect-stat">
-            ✗ <strong>{sessionStats.incorrect}</strong>
+          <span className="stat mastery-stat">
+            {masteredCount}/{totalCount}
           </span>
           <button
             className="settings-btn"
@@ -380,7 +334,7 @@ export const FlashcardsGame: React.FC<FlashcardsGameProps> = ({ onBack }) => {
       {isAnswered && (
         <div className="next-section">
           <button className="next-button" onClick={handleNext}>
-            {currentIndex < sessionCards.length - 1 ? 'הבא →' : 'סיום'}
+            הבא →
           </button>
         </div>
       )}
