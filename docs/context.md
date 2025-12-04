@@ -42,17 +42,25 @@ An English learning application for Hebrew speakers, focusing on vocabulary acqu
 - Track "knew it" vs "didn't know" responses
 - Cards in lower boxes appear more frequently
 - Overall mastery progress tracking
-- 10 cards per session
+- Continuous play mode
+
+### Hangman Game
+- Classic word-guessing game with letter-by-letter discovery
+- 6 wrong guesses allowed with ASCII hangman figure
+- Limited letter keyboard (word letters + decoys, not full A-Z)
+- Hebrew word and transcription shown with speaker button
+- Word revealed in green (win) or red (loss)
+- Streak-based scoring with record tracking
 
 ## Current Scope
 - Web application (React + Webpack)
-- Three playable games: Memory, Spelling, and Flashcards
-- Beginner vocabulary (20 common nouns)
+- Four playable games: Memory, Spelling, Flashcards, and Hangman
+- 110 words across 8 categories
 - RTL support for Hebrew with LTR for English spelling
 
 ## Future Direction
-- Mobile application using React Native
-- Additional learning games (Flashcards, Quiz)
+- Mobile application using React Native or PWA
+- Progress tracking dashboard
 - Word management (add/edit words via AI API)
 - Difficulty levels
-- More vocabulary categories
+- Category selection in games

@@ -1,7 +1,7 @@
 # Current State
 
 ## Last Updated
-2025-12-04 23:45
+2025-12-05 00:25
 
 ## What's Working
 - [x] Project setup (Webpack + React + TypeScript)
@@ -58,11 +58,11 @@
 - Classic word-guessing game with letter-by-letter discovery
 - 6 wrong guesses allowed before losing
 - ASCII/Unicode hangman figure with 7 stages
-- A-Z letter keyboard in alphabetical order (7 cols mobile, 13 cols tablet+)
-- Hebrew word and transcription always visible
-- English word revealed letter by letter
+- Limited letter keyboard (word letters + 8 decoys, not full A-Z)
+- Hebrew word and transcription always visible with speaker button
+- English word revealed letter by letter (green on win, red on loss)
 - Streak tracking with best record in localStorage
-- Hint button plays English pronunciation (always available)
+- Compact mobile-friendly UI with proper viewport handling
 - Mobile-first design with 48px minimum tap targets
 
 ## Running the App
@@ -85,12 +85,14 @@ npm start
 - Commits ahead of origin/main (need to push)
 
 ## Recent Changes (This Session)
-- Implemented Hangman game with letter guessing
-- Added ASCII/Unicode hangman figure (7 stages)
-- Added A-Z letter keyboard with state-based styling
-- Added streak tracking and localStorage integration
-- Updated GameMenu to include Hangman with 👤 icon
-- Added responsive CSS for mobile, tablet, and desktop
+- Implemented Hangman game with full gameplay
+- Limited letter keyboard (word letters + 8 decoys for fair play)
+- ASCII/Unicode hangman figure (7 stages)
+- Speaker button near Hebrew word for pronunciation
+- Word highlighted green on win, red on loss
+- Compact header and feedback UI for mobile viewport
+- Created feature design workflow: /feature-design-agent → /implement-agent
+- Added design doc at docs/features/hangman-game.md
 
 ## File Structure
 ```
