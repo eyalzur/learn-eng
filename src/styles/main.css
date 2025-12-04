@@ -1026,6 +1026,279 @@ body {
   font-size: 1.2rem;
 }
 
+/* Hangman Game */
+.hangman-game {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.hangman-game .game-header {
+  margin-bottom: 5px;
+}
+
+.hangman-game .game-header h1 {
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.hangman-game .game-stats {
+  margin-bottom: 5px;
+  gap: 10px;
+}
+
+.hangman-game .stat {
+  padding: 3px 10px;
+  font-size: 0.85rem;
+}
+
+.hangman-game .game-controls {
+  margin-bottom: 0;
+}
+
+.hangman-game .restart-button {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+.hangman-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  overflow-y: auto;
+  padding-bottom: 20px;
+  min-height: 0;
+}
+
+.hangman-figure {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 5px 10px;
+  text-align: center;
+  font-family: 'Courier New', monospace;
+  color: white;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.hangman-figure pre {
+  font-size: 0.75rem;
+  line-height: 1.1;
+  margin: 0;
+  white-space: pre;
+}
+
+.word-display {
+  text-align: center;
+  margin-bottom: 5px;
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.hebrew-hint {
+  font-size: 1.8rem;
+  color: white;
+  margin-bottom: 8px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.hebrew-hint .speak-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.hebrew-hint .speak-btn:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.transcription-hint {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-right: 8px;
+  font-weight: 400;
+}
+
+.word-blanks {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  direction: ltr;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: white;
+  margin-top: 10px;
+}
+
+.letter-blank {
+  min-width: 30px;
+  text-align: center;
+}
+
+.word-blanks.revealed-lost {
+  color: #ff6b6b;
+}
+
+.word-blanks.revealed-won {
+  color: #4CAF50;
+}
+
+/* Game Feedback (win/lose indicator) */
+.game-feedback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 10px;
+  flex-shrink: 0;
+}
+
+.game-feedback .feedback-icon {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.game-feedback.won .feedback-icon {
+  color: #4CAF50;
+}
+
+.game-feedback.lost .feedback-icon {
+  color: #e74c3c;
+}
+
+.game-feedback .next-button {
+  padding: 10px 25px;
+  font-size: 1rem;
+}
+
+/* Letter Keyboard */
+.letter-keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  margin-bottom: 8px;
+  width: 100%;
+  max-width: 400px;
+  flex-shrink: 0;
+}
+
+.letter-button {
+  background: rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 8px;
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Rubik', sans-serif;
+}
+
+.letter-button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(1.05);
+}
+
+.letter-button.correct {
+  background: rgba(76, 175, 80, 0.6);
+  border-color: rgba(76, 175, 80, 0.8);
+}
+
+.letter-button.incorrect {
+  background: rgba(244, 67, 54, 0.6);
+  border-color: rgba(244, 67, 54, 0.8);
+}
+
+.letter-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Wrong Guesses Display */
+.wrong-guesses {
+  text-align: center;
+  color: white;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+}
+
+.wrong-guesses .count {
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+/* Game Result */
+.game-result {
+  text-align: center;
+  padding: 12px 15px;
+  border-radius: 12px;
+  margin-top: 10px;
+  color: white;
+  flex-shrink: 0;
+}
+
+.game-result.win {
+  background: linear-gradient(145deg, #4CAF50, #45a049);
+}
+
+.game-result.lose {
+  background: linear-gradient(145deg, #e74c3c, #c0392b);
+}
+
+.game-result h2 {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+
+.game-result p {
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+.game-result .next-button {
+  margin-top: 10px;
+  padding: 10px 25px;
+  font-size: 1rem;
+}
+
+.game-result .streak-info {
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+
+.game-result .streak-info strong {
+  color: #ffd700;
+  font-size: 1.1rem;
+}
+
 /* ===================================
    RESPONSIVE BREAKPOINTS (Mobile-First)
    - Mobile: default (< 480px)
@@ -1133,6 +1406,21 @@ body {
     height: 52px;
     font-size: 1.8rem;
   }
+
+  /* Hangman Game - larger elements on tablet */
+  .hangman-figure pre {
+    font-size: 0.9rem;
+  }
+
+  .letter-keyboard {
+    grid-template-columns: repeat(13, 1fr);
+    max-width: 500px;
+  }
+
+  .letter-button {
+    font-size: 1.1rem;
+    min-width: 35px;
+  }
 }
 
 /* Desktop (1024px+) */
@@ -1177,5 +1465,14 @@ body {
 
   .card-transcription {
     font-size: 0.75rem;
+  }
+
+  /* Hangman Game - larger elements on desktop */
+  .hangman-figure pre {
+    font-size: 1rem;
+  }
+
+  .letter-button {
+    font-size: 1.2rem;
   }
 }

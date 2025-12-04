@@ -1,7 +1,7 @@
 import React from 'react';
 import { APP_VERSION } from '../../constants/version';
 
-export type GameType = 'memory' | 'spelling' | 'flashcards' | null;
+export type GameType = 'memory' | 'spelling' | 'flashcards' | 'hangman' | null;
 
 interface GameInfo {
   id: GameType;
@@ -35,6 +35,14 @@ const GAMES: GameInfo[] = [
     nameHe: 'איות',
     description: 'תרגל כתיבת מילים באנגלית',
     icon: '✏️',
+    available: true,
+  },
+  {
+    id: 'hangman',
+    name: 'Hangman',
+    nameHe: 'תליין',
+    description: 'נחש את המילה אות אחר אות',
+    icon: '👤',
     available: true,
   },
   {

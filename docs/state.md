@@ -1,7 +1,7 @@
 # Current State
 
 ## Last Updated
-2025-12-04 23:30
+2025-12-04 23:45
 
 ## What's Working
 - [x] Project setup (Webpack + React + TypeScript)
@@ -10,6 +10,7 @@
 - [x] Spelling game with drag-and-drop letters
 - [x] Spelling game with tap-to-place (mobile-friendly)
 - [x] Flashcards game with spaced repetition
+- [x] Hangman game with letter guessing
 - [x] Dictionary with 110 words across 8 categories
 - [x] Text-to-speech for word pronunciation
 - [x] Record tracking (localStorage)
@@ -20,7 +21,7 @@
 - [x] 48px minimum tap targets throughout
 - [x] Dev server running on port 4000
 - [x] Production deployment on Render
-- [x] App version display (v0.1.24)
+- [x] App version display (v0.1.25)
 - [x] Agent-based slash commands for parallel development
 - [x] Git repository with feature branches
 
@@ -53,6 +54,17 @@
 - Overall mastery progress tracking
 - Settings and progress persisted in localStorage
 
+### Hangman Game
+- Classic word-guessing game with letter-by-letter discovery
+- 6 wrong guesses allowed before losing
+- ASCII/Unicode hangman figure with 7 stages
+- A-Z letter keyboard in alphabetical order (7 cols mobile, 13 cols tablet+)
+- Hebrew word and transcription always visible
+- English word revealed letter by letter
+- Streak tracking with best record in localStorage
+- Hint button plays English pronunciation (always available)
+- Mobile-first design with 48px minimum tap targets
+
 ## Running the App
 ```bash
 # Development
@@ -67,17 +79,18 @@ npm start
 ```
 
 ## Current Version
-**v0.1.24** - Continuous Flashcards play (no rounds)
+**v0.1.25** - Hangman game implementation
 
 ## Known Issues
 - Commits ahead of origin/main (need to push)
 
 ## Recent Changes (This Session)
-- Removed session/round system from Flashcards (continuous play)
-- Created agent-based slash commands for parallel development:
-  - `/bug-report-agent` - Spawns agent to document bugs with technical analysis
-  - `/feature-design-agent` - Spawns agent to research and design features
-  - `/implement-agent` - Spawns agent to implement from bug/feature docs
+- Implemented Hangman game with letter guessing
+- Added ASCII/Unicode hangman figure (7 stages)
+- Added A-Z letter keyboard with state-based styling
+- Added streak tracking and localStorage integration
+- Updated GameMenu to include Hangman with 👤 icon
+- Added responsive CSS for mobile, tablet, and desktop
 
 ## File Structure
 ```
@@ -86,7 +99,8 @@ src/
 │   ├── GameMenu/         # Game selection screen
 │   ├── MemoryGame/       # Memory matching game
 │   ├── SpellingGame/     # Letter spelling game
-│   └── FlashcardsGame/   # Spaced repetition flashcards
+│   ├── FlashcardsGame/   # Spaced repetition flashcards
+│   └── HangmanGame/      # Hangman word guessing game
 ├── constants/
 │   └── version.ts        # App version tracking
 ├── data/

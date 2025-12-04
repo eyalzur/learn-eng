@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MemoryGame } from './components/MemoryGame';
 import { SpellingGame } from './components/SpellingGame';
 import { FlashcardsGame } from './components/FlashcardsGame';
+import { HangmanGame } from './components/HangmanGame';
 import { GameMenu, GameType } from './components/GameMenu';
 import './styles/main.css';
 
@@ -42,6 +43,9 @@ export const App: React.FC = () => {
       )}
       {currentGame === 'flashcards' && (
         <FlashcardsGame onBack={handleBackToMenu} />
+      )}
+      {currentGame === 'hangman' && (
+        <HangmanGame onBack={handleBackToMenu} />
       )}
     </div>
   );

@@ -38,9 +38,7 @@ Add more interactive games to expand learning methods.
 - [x] Memory Game - Match English-Hebrew pairs
 - [x] Spelling Game - Drag-and-drop letter spelling
 - [x] Flashcards game with spaced repetition and multiple choice quiz
-
-### Tasks
-- [ ] Hangman game
+- [x] Hangman game
 
 ---
 
