@@ -8,12 +8,18 @@ export type Category =
   | 'nature'
   | 'verbs';
 
+export interface ExampleSentence {
+  english: string;  // English example sentence
+  hebrew: string;   // Hebrew translation of the sentence
+}
+
 export interface Word {
   id: string;
   english: string;
   hebrew: string;
   transcription: string; // Hebrew phonetic transcription with nikud
   category: Category;
+  exampleSentence?: ExampleSentence;  // Optional example sentence
 }
 
 // Category display names (Hebrew)
@@ -31,10 +37,50 @@ export const categoryNames: Record<Category, string> = {
 // Full dictionary organized by category
 export const dictionary: Word[] = [
   // ============ ANIMALS ============
-  { id: 'animal-1', english: 'cat', hebrew: 'חָתוּל', transcription: 'קֶט', category: 'animals' },
-  { id: 'animal-2', english: 'dog', hebrew: 'כֶּלֶב', transcription: 'דּוֹג', category: 'animals' },
-  { id: 'animal-3', english: 'bird', hebrew: 'צִפּוֹר', transcription: 'בֶּרְד', category: 'animals' },
-  { id: 'animal-4', english: 'fish', hebrew: 'דָּג', transcription: 'פִישׁ', category: 'animals' },
+  {
+    id: 'animal-1',
+    english: 'cat',
+    hebrew: 'חָתוּל',
+    transcription: 'קֶט',
+    category: 'animals',
+    exampleSentence: {
+      english: 'The cat is sleeping on the sofa.',
+      hebrew: 'החתול ישן על הספה.',
+    },
+  },
+  {
+    id: 'animal-2',
+    english: 'dog',
+    hebrew: 'כֶּלֶב',
+    transcription: 'דּוֹג',
+    category: 'animals',
+    exampleSentence: {
+      english: 'The dog likes to play in the park.',
+      hebrew: 'הכלב אוהב לשחק בפארק.',
+    },
+  },
+  {
+    id: 'animal-3',
+    english: 'bird',
+    hebrew: 'צִפּוֹר',
+    transcription: 'בֶּרְד',
+    category: 'animals',
+    exampleSentence: {
+      english: 'The bird is singing in the tree.',
+      hebrew: 'הציפור שרה על העץ.',
+    },
+  },
+  {
+    id: 'animal-4',
+    english: 'fish',
+    hebrew: 'דָּג',
+    transcription: 'פִישׁ',
+    category: 'animals',
+    exampleSentence: {
+      english: 'The fish swims in the water.',
+      hebrew: 'הדג שוחה במים.',
+    },
+  },
   { id: 'animal-5', english: 'horse', hebrew: 'סוּס', transcription: 'הוֹרְס', category: 'animals' },
   { id: 'animal-6', english: 'cow', hebrew: 'פָּרָה', transcription: 'קָאוּ', category: 'animals' },
   { id: 'animal-7', english: 'pig', hebrew: 'חֲזִיר', transcription: 'פִּיג', category: 'animals' },
@@ -49,10 +95,50 @@ export const dictionary: Word[] = [
 
   // ============ FOOD ============
   { id: 'food-1', english: 'food', hebrew: 'אֹכֶל', transcription: 'פוּד', category: 'food' },
-  { id: 'food-2', english: 'water', hebrew: 'מַיִם', transcription: 'ווֹטֶר', category: 'food' },
-  { id: 'food-3', english: 'milk', hebrew: 'חָלָב', transcription: 'מִילְק', category: 'food' },
-  { id: 'food-4', english: 'bread', hebrew: 'לֶחֶם', transcription: 'בְּרֶד', category: 'food' },
-  { id: 'food-5', english: 'apple', hebrew: 'תַּפּוּחַ', transcription: 'אֶפֶּל', category: 'food' },
+  {
+    id: 'food-2',
+    english: 'water',
+    hebrew: 'מַיִם',
+    transcription: 'ווֹטֶר',
+    category: 'food',
+    exampleSentence: {
+      english: 'I drink water every day.',
+      hebrew: 'אני שותה מים כל יום.',
+    },
+  },
+  {
+    id: 'food-3',
+    english: 'milk',
+    hebrew: 'חָלָב',
+    transcription: 'מִילְק',
+    category: 'food',
+    exampleSentence: {
+      english: 'The milk is in the fridge.',
+      hebrew: 'החלב במקרר.',
+    },
+  },
+  {
+    id: 'food-4',
+    english: 'bread',
+    hebrew: 'לֶחֶם',
+    transcription: 'בְּרֶד',
+    category: 'food',
+    exampleSentence: {
+      english: 'I eat bread for breakfast.',
+      hebrew: 'אני אוכל לחם לארוחת בוקר.',
+    },
+  },
+  {
+    id: 'food-5',
+    english: 'apple',
+    hebrew: 'תַּפּוּחַ',
+    transcription: 'אֶפֶּל',
+    category: 'food',
+    exampleSentence: {
+      english: 'The apple is red and sweet.',
+      hebrew: 'התפוח אדום ומתוק.',
+    },
+  },
   { id: 'food-6', english: 'banana', hebrew: 'בָּנָנָה', transcription: 'בַּנַנָה', category: 'food' },
   { id: 'food-7', english: 'orange', hebrew: 'תַּפּוּז', transcription: 'אוֹרֶנְג׳', category: 'food' },
   { id: 'food-8', english: 'egg', hebrew: 'בֵּיצָה', transcription: 'אֶג', category: 'food' },
@@ -65,10 +151,50 @@ export const dictionary: Word[] = [
   { id: 'food-15', english: 'juice', hebrew: 'מִיץ', transcription: 'ג׳וּס', category: 'food' },
 
   // ============ COLORS ============
-  { id: 'color-1', english: 'red', hebrew: 'אָדֹם', transcription: 'רֶד', category: 'colors' },
-  { id: 'color-2', english: 'blue', hebrew: 'כָּחֹל', transcription: 'בְּלוּ', category: 'colors' },
-  { id: 'color-3', english: 'green', hebrew: 'יָרֹק', transcription: 'גְּרִין', category: 'colors' },
-  { id: 'color-4', english: 'yellow', hebrew: 'צָהֹב', transcription: 'יֶלוֹ', category: 'colors' },
+  {
+    id: 'color-1',
+    english: 'red',
+    hebrew: 'אָדֹם',
+    transcription: 'רֶד',
+    category: 'colors',
+    exampleSentence: {
+      english: 'The car is red.',
+      hebrew: 'המכונית אדומה.',
+    },
+  },
+  {
+    id: 'color-2',
+    english: 'blue',
+    hebrew: 'כָּחֹל',
+    transcription: 'בְּלוּ',
+    category: 'colors',
+    exampleSentence: {
+      english: 'The sky is blue today.',
+      hebrew: 'השמיים כחולים היום.',
+    },
+  },
+  {
+    id: 'color-3',
+    english: 'green',
+    hebrew: 'יָרֹק',
+    transcription: 'גְּרִין',
+    category: 'colors',
+    exampleSentence: {
+      english: 'The grass is green.',
+      hebrew: 'הדשא ירוק.',
+    },
+  },
+  {
+    id: 'color-4',
+    english: 'yellow',
+    hebrew: 'צָהֹב',
+    transcription: 'יֶלוֹ',
+    category: 'colors',
+    exampleSentence: {
+      english: 'The sun is yellow.',
+      hebrew: 'השמש צהובה.',
+    },
+  },
   { id: 'color-5', english: 'orange', hebrew: 'כָּתֹם', transcription: 'אוֹרֶנְג׳', category: 'colors' },
   { id: 'color-6', english: 'purple', hebrew: 'סָגֹל', transcription: 'פֶּרְפֶּל', category: 'colors' },
   { id: 'color-7', english: 'pink', hebrew: 'וָרֹד', transcription: 'פִּינְק', category: 'colors' },
@@ -101,12 +227,42 @@ export const dictionary: Word[] = [
   { id: 'number-20', english: 'twenty', hebrew: 'עֶשְׂרִים', transcription: 'טְוֶנְטִי', category: 'numbers' },
 
   // ============ BODY PARTS ============
-  { id: 'body-1', english: 'head', hebrew: 'רֹאשׁ', transcription: 'הֶד', category: 'bodyParts' },
-  { id: 'body-2', english: 'eye', hebrew: 'עַיִן', transcription: 'אַיי', category: 'bodyParts' },
+  {
+    id: 'body-1',
+    english: 'head',
+    hebrew: 'רֹאשׁ',
+    transcription: 'הֶד',
+    category: 'bodyParts',
+    exampleSentence: {
+      english: 'I wear a hat on my head.',
+      hebrew: 'אני חובש כובע על הראש.',
+    },
+  },
+  {
+    id: 'body-2',
+    english: 'eye',
+    hebrew: 'עַיִן',
+    transcription: 'אַיי',
+    category: 'bodyParts',
+    exampleSentence: {
+      english: 'I have two eyes.',
+      hebrew: 'יש לי שתי עיניים.',
+    },
+  },
   { id: 'body-3', english: 'ear', hebrew: 'אֹזֶן', transcription: 'אִיר', category: 'bodyParts' },
   { id: 'body-4', english: 'nose', hebrew: 'אַף', transcription: 'נוֹז', category: 'bodyParts' },
   { id: 'body-5', english: 'mouth', hebrew: 'פֶּה', transcription: 'מַאוּת׳', category: 'bodyParts' },
-  { id: 'body-6', english: 'hand', hebrew: 'יָד', transcription: 'הַנְד', category: 'bodyParts' },
+  {
+    id: 'body-6',
+    english: 'hand',
+    hebrew: 'יָד',
+    transcription: 'הַנְד',
+    category: 'bodyParts',
+    exampleSentence: {
+      english: 'I wash my hands before eating.',
+      hebrew: 'אני שוטף ידיים לפני אוכל.',
+    },
+  },
   { id: 'body-7', english: 'foot', hebrew: 'רֶגֶל', transcription: 'פוּט', category: 'bodyParts' },
   { id: 'body-8', english: 'arm', hebrew: 'זְרוֹעַ', transcription: 'אַרְם', category: 'bodyParts' },
   { id: 'body-9', english: 'leg', hebrew: 'רֶגֶל', transcription: 'לֶג', category: 'bodyParts' },
@@ -115,9 +271,39 @@ export const dictionary: Word[] = [
   { id: 'body-12', english: 'tooth', hebrew: 'שֵׁן', transcription: 'טוּת׳', category: 'bodyParts' },
 
   // ============ HOUSEHOLD ============
-  { id: 'house-1', english: 'house', hebrew: 'בַּיִת', transcription: 'הַאוּס', category: 'household' },
-  { id: 'house-2', english: 'door', hebrew: 'דֶּלֶת', transcription: 'דוֹר', category: 'household' },
-  { id: 'house-3', english: 'table', hebrew: 'שֻׁלְחָן', transcription: 'טֵייבֶּל', category: 'household' },
+  {
+    id: 'house-1',
+    english: 'house',
+    hebrew: 'בַּיִת',
+    transcription: 'הַאוּס',
+    category: 'household',
+    exampleSentence: {
+      english: 'I live in a big house.',
+      hebrew: 'אני גר בבית גדול.',
+    },
+  },
+  {
+    id: 'house-2',
+    english: 'door',
+    hebrew: 'דֶּלֶת',
+    transcription: 'דוֹר',
+    category: 'household',
+    exampleSentence: {
+      english: 'Please close the door.',
+      hebrew: 'בבקשה סגור את הדלת.',
+    },
+  },
+  {
+    id: 'house-3',
+    english: 'table',
+    hebrew: 'שֻׁלְחָן',
+    transcription: 'טֵייבֶּל',
+    category: 'household',
+    exampleSentence: {
+      english: 'The food is on the table.',
+      hebrew: 'האוכל על השולחן.',
+    },
+  },
   { id: 'house-4', english: 'chair', hebrew: 'כִּסֵּא', transcription: 'צֶ׳יר', category: 'household' },
   { id: 'house-5', english: 'bed', hebrew: 'מִיטָה', transcription: 'בֶּד', category: 'household' },
   { id: 'house-6', english: 'window', hebrew: 'חַלּוֹן', transcription: 'וִוינְדוֹ', category: 'household' },
@@ -125,8 +311,28 @@ export const dictionary: Word[] = [
   { id: 'house-8', english: 'kitchen', hebrew: 'מִטְבָּח', transcription: 'קִיטְשֶׁן', category: 'household' },
   { id: 'house-9', english: 'bathroom', hebrew: 'חֲדַר אַמְבַּטְיָה', transcription: 'בַּאתְרוּם', category: 'household' },
   { id: 'house-10', english: 'car', hebrew: 'מְכוֹנִית', transcription: 'קָאר', category: 'household' },
-  { id: 'house-11', english: 'book', hebrew: 'סֵפֶר', transcription: 'בּוּק', category: 'household' },
-  { id: 'house-12', english: 'ball', hebrew: 'כַּדּוּר', transcription: 'בּוֹל', category: 'household' },
+  {
+    id: 'house-11',
+    english: 'book',
+    hebrew: 'סֵפֶר',
+    transcription: 'בּוּק',
+    category: 'household',
+    exampleSentence: {
+      english: 'I love to read a good book.',
+      hebrew: 'אני אוהב לקרוא ספר טוב.',
+    },
+  },
+  {
+    id: 'house-12',
+    english: 'ball',
+    hebrew: 'כַּדּוּר',
+    transcription: 'בּוֹל',
+    category: 'household',
+    exampleSentence: {
+      english: 'The ball is round.',
+      hebrew: 'הכדור עגול.',
+    },
+  },
 
   // ============ NATURE ============
   { id: 'nature-1', english: 'sun', hebrew: 'שֶׁמֶשׁ', transcription: 'סַן', category: 'nature' },

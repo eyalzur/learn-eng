@@ -58,7 +58,7 @@ Grow the dictionary and organize content for better learning.
 - [x] Add household words (12 words)
 
 ### Tasks
-- [ ] Add example sentences to words
+- [x] Add example sentences to words *(20/110 words have sentences, displays in Flashcards & Hangman)*
 
 ---
 
@@ -78,7 +78,7 @@ Track user learning progress across sessions and games.
 Improve existing games with new features.
 
 ### Tasks
-- [ ] Spelling Game: Reorder letters between boxes (drag/tap to swap placed letters)
+- [~] Spelling Game: Reorder letters between boxes (drag/tap to swap placed letters) *(design complete: docs/features/spelling-letter-reordering.md)*
 - [ ] Add difficulty levels (easy/medium/hard) to games
 - [ ] Add timer mode option
 - [ ] Add more hint types

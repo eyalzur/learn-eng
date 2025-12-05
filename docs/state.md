@@ -1,7 +1,7 @@
 # Current State
 
 ## Last Updated
-2025-12-05 00:25
+2025-12-05 18:30
 
 ## What's Working
 - [x] Project setup (Webpack + React + TypeScript)
@@ -21,9 +21,10 @@
 - [x] 48px minimum tap targets throughout
 - [x] Dev server running on port 4000
 - [x] Production deployment on Render
-- [x] App version display (v0.1.25)
+- [x] App version display (v0.1.26)
 - [x] Agent-based slash commands for parallel development
 - [x] Git repository with feature branches
+- [x] Example sentences feature (Flashcards & Hangman)
 
 ## Active Games
 
@@ -53,6 +54,7 @@
 - Continuous play (no session/round limits)
 - Overall mastery progress tracking
 - Settings and progress persisted in localStorage
+- Example sentences displayed after answering (replaces question card)
 
 ### Hangman Game
 - Classic word-guessing game with letter-by-letter discovery
@@ -64,6 +66,7 @@
 - Streak tracking with best record in localStorage
 - Compact mobile-friendly UI with proper viewport handling
 - Mobile-first design with 48px minimum tap targets
+- Example sentences displayed after win/loss (replaces hangman figure)
 
 ## Running the App
 ```bash
@@ -79,20 +82,20 @@ npm start
 ```
 
 ## Current Version
-**v0.1.25** - Hangman game implementation
+**v0.1.26** - Example sentences feature
 
 ## Known Issues
-- Commits ahead of origin/main (need to push)
+- 90/110 words still need example sentences added
 
 ## Recent Changes (This Session)
-- Implemented Hangman game with full gameplay
-- Limited letter keyboard (word letters + 8 decoys for fair play)
-- ASCII/Unicode hangman figure (7 stages)
-- Speaker button near Hebrew word for pronunciation
-- Word highlighted green on win, red on loss
-- Compact header and feedback UI for mobile viewport
-- Created feature design workflow: /feature-design-agent → /implement-agent
-- Added design doc at docs/features/hangman-game.md
+- Implemented vocabulary-expansion-sentences feature
+  - Added SentenceDisplay shared component
+  - 20 words have example sentences (English + Hebrew)
+  - Flashcards: sentence replaces question card after answering
+  - Hangman: sentence replaces hangman figure after win/loss
+  - Blue card styling matching app theme
+  - Speaker buttons for TTS on both languages
+  - Fixed localStorage bug (merge stored progress with fresh dictionary)
 
 ## File Structure
 ```
@@ -102,7 +105,8 @@ src/
 │   ├── MemoryGame/       # Memory matching game
 │   ├── SpellingGame/     # Letter spelling game
 │   ├── FlashcardsGame/   # Spaced repetition flashcards
-│   └── HangmanGame/      # Hangman word guessing game
+│   ├── HangmanGame/      # Hangman word guessing game
+│   └── shared/           # Shared components (SentenceDisplay)
 ├── constants/
 │   └── version.ts        # App version tracking
 ├── data/

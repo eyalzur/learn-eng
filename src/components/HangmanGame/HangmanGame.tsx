@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Word, getRandomWords } from '../../data/dictionary';
 import { speak } from '../../utils/speech';
+import { SentenceDisplay } from '../shared/SentenceDisplay';
 
 interface HangmanGameProps {
   onBack?: () => void;
@@ -276,9 +277,13 @@ export const HangmanGame: React.FC<HangmanGameProps> = ({ onBack }) => {
 
       {currentWord && (
         <div className="hangman-content">
-          <div className="hangman-figure">
-            <pre>{getHangmanFigure(wrongGuessCount)}</pre>
-          </div>
+          {(gameStatus === 'won' || gameStatus === 'lost') && currentWord.exampleSentence ? (
+            <SentenceDisplay sentence={currentWord.exampleSentence} />
+          ) : (
+            <div className="hangman-figure">
+              <pre>{getHangmanFigure(wrongGuessCount)}</pre>
+            </div>
+          )}
 
           <div className="word-display">
             <div className="hebrew-hint">

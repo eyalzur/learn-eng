@@ -8,10 +8,11 @@
  *
  * Update this version when completing tasks or epics.
  */
-export const APP_VERSION = '0.1.25';
+export const APP_VERSION = '0.1.26';
 
 /**
  * Version History:
+ * 0.1.26 - Example sentences feature (Flashcards & Hangman)
  * 0.1.25 - Hangman game implementation
  * 0.1.24 - Remove session/round system from Flashcards (continuous play)
  * 0.1.23 - Vocabulary expansion: 100+ words with categories

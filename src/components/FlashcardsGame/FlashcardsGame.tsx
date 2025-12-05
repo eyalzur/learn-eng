@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Word, dictionary } from '../../data/dictionary';
 import { speak } from '../../utils/speech';
+import { SentenceDisplay } from '../shared/SentenceDisplay';
 
 interface FlashcardsGameProps {
   onBack?: () => void;
@@ -21,7 +22,13 @@ const SETTINGS_KEY = 'learn-eng-flashcards-settings';
 const getStoredProgress = (): CardState[] => {
   const stored = localStorage.getItem(STORAGE_KEY);
   if (stored) {
-    return JSON.parse(stored);
+    const storedCards: CardState[] = JSON.parse(stored);
+    // Merge stored progress with fresh dictionary data (to get new fields like exampleSentence)
+    const dictMap = new Map(dictionary.map(w => [w.id, w]));
+    return storedCards.map(card => ({
+      ...card,
+      word: dictMap.get(card.word.id) || card.word,
+    }));
   }
   return dictionary.map((word) => ({
     word,
@@ -279,21 +286,25 @@ export const FlashcardsGame: React.FC<FlashcardsGameProps> = ({ onBack }) => {
       </div>
 
       <div className="flashcard-container">
-        <div className="question-card">
-          <div className="question-label">
-            {questionLang === 'hebrew' ? 'מה המילה באנגלית?' : 'מה המילה בעברית?'}
+        {isAnswered && currentCard.word.exampleSentence ? (
+          <SentenceDisplay sentence={currentCard.word.exampleSentence} />
+        ) : (
+          <div className="question-card">
+            <div className="question-label">
+              {questionLang === 'hebrew' ? 'מה המילה באנגלית?' : 'מה המילה בעברית?'}
+            </div>
+            <div className="question-word">{questionText}</div>
+            {questionLang === 'hebrew' && (
+              <div className="question-transcription">{currentCard.word.transcription}</div>
+            )}
+            <button
+              className="speak-btn"
+              onClick={() => handleSpeak(currentCard.word, 'en')}
+            >
+              🔊
+            </button>
           </div>
-          <div className="question-word">{questionText}</div>
-          {questionLang === 'hebrew' && (
-            <div className="question-transcription">{currentCard.word.transcription}</div>
-          )}
-          <button
-            className="speak-btn"
-            onClick={() => handleSpeak(currentCard.word, 'en')}
-          >
-            🔊
-          </button>
-        </div>
+        )}
 
         <div className="box-indicator">
           רמה {currentCard.box}/5
