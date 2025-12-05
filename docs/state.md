@@ -1,7 +1,7 @@
 # Current State
 
 ## Last Updated
-2025-12-05 18:30
+2025-12-05 19:00
 
 ## What's Working
 - [x] Project setup (Webpack + React + TypeScript)
@@ -96,6 +96,11 @@ npm start
   - Blue card styling matching app theme
   - Speaker buttons for TTS on both languages
   - Fixed localStorage bug (merge stored progress with fresh dictionary)
+- Created design docs for upcoming features:
+  - difficulty-levels, progress-tracking, timer-mode, sound-effects, category-selection
+- Created technical design docs:
+  - timer-mode, sound-effects, progress-tracking, category-selection, difficulty-levels, vocabulary-expansion-sentences
+- Merged feature/vocabulary-expansion-sentences branch to main
 
 ## File Structure
 ```
@@ -131,4 +136,7 @@ src/
 └── ...                   # Other commands
 
 docs/features/            # Feature design documents (for implement-agent)
+
+design-docs/              # UX/Product design documents
+tech-docs/                # Technical design documents
 ```

@@ -65,8 +65,12 @@ Grow the dictionary and organize content for better learning.
 ## [P1] Progress Tracking
 Track user learning progress across sessions and games.
 
+### Design Documents
+- UX Design: `design-docs/progress-tracking.md`
+- Tech Design: `tech-docs/progress-tracking.md`
+
 ### Tasks
-- [ ] Design progress data model (words learned, attempts, success rate)
+- [x] Design progress data model (words learned, attempts, success rate) *(tech design complete)*
 - [ ] Track which words user has learned per game
 - [ ] Show overall score history
 - [ ] Implement daily learning streaks
@@ -77,20 +81,28 @@ Track user learning progress across sessions and games.
 ## [P2] Game Enhancements
 Improve existing games with new features.
 
+### Design Documents
+- Difficulty Levels: `design-docs/difficulty-levels.md`, `tech-docs/difficulty-levels.md`
+- Timer Mode: `design-docs/timer-mode.md`, `tech-docs/timer-mode.md`
+- Sound Effects: `design-docs/sound-effects.md`, `tech-docs/sound-effects.md`
+
 ### Tasks
 - [~] Spelling Game: Reorder letters between boxes (drag/tap to swap placed letters) *(design complete: docs/features/spelling-letter-reordering.md)*
-- [ ] Add difficulty levels (easy/medium/hard) to games
-- [ ] Add timer mode option
+- [ ] Add difficulty levels (easy/medium/hard) to games *(tech design complete)*
+- [ ] Add timer mode option *(tech design complete)*
 - [ ] Add more hint types
-- [ ] Add sound effects for correct/incorrect
+- [ ] Add sound effects for correct/incorrect *(tech design complete)*
 
 ---
 
 ## [P2] Content Features
 Let users customize and manage vocabulary.
 
+### Design Documents
+- Category Selection: `design-docs/category-selection.md`, `tech-docs/category-selection.md`
+
 ### Tasks
-- [ ] Add category/topic selection in game settings
+- [ ] Add category/topic selection in game settings *(tech design complete)*
 - [ ] Allow custom word lists
 - [ ] Import/export word lists (JSON)
 - [ ] AI-powered word addition (describe word → generate entry)
