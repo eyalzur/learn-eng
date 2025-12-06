@@ -8,10 +8,11 @@
  *
  * Update this version when completing tasks or epics.
  */
-export const APP_VERSION = '0.1.26';
+export const APP_VERSION = '0.1.27';
 
 /**
  * Version History:
+ * 0.1.27 - Unified game layout + word teaching modal (Spelling, Flashcards, Hangman)
  * 0.1.26 - Example sentences feature (Flashcards & Hangman)
  * 0.1.25 - Hangman game implementation
  * 0.1.24 - Remove session/round system from Flashcards (continuous play)

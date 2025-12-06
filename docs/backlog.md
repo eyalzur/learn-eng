@@ -88,6 +88,7 @@ Improve existing games with new features.
 
 ### Tasks
 - [~] Spelling Game: Reorder letters between boxes (drag/tap to swap placed letters) *(design complete: docs/features/spelling-letter-reordering.md)*
+- [ ] Memory Game: Add word teaching modal after each pair match *(separate modal design needed)*
 - [ ] Add difficulty levels (easy/medium/hard) to games *(tech design complete)*
 - [ ] Add timer mode option *(tech design complete)*
 - [ ] Add more hint types

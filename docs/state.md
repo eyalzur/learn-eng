@@ -1,7 +1,7 @@
 # Current State
 
 ## Last Updated
-2025-12-05 19:00
+2025-12-06 08:00
 
 ## What's Working
 - [x] Project setup (Webpack + React + TypeScript)
@@ -21,10 +21,12 @@
 - [x] 48px minimum tap targets throughout
 - [x] Dev server running on port 4000
 - [x] Production deployment on Render
-- [x] App version display (v0.1.26)
+- [x] App version display (v0.1.27)
 - [x] Agent-based slash commands for parallel development
 - [x] Git repository with feature branches
 - [x] Example sentences feature (Flashcards & Hangman)
+- [x] Unified game layout (header/content/footer structure)
+- [x] Word teaching modal with example sentences
 
 ## Active Games
 
@@ -35,6 +37,7 @@
 - Fixed-width columns ensure cards fit all mobile viewports
 - Per-word-count record tracking
 - Color-coded matched pairs
+- *Note: Does not yet have unified layout or word teaching modal*
 
 ### Spelling Game
 - Drag letters from basket to spell English words
@@ -44,6 +47,8 @@
 - Hint button always available (shows transcription + pronunciation)
 - Single-line letter boxes (no wrapping)
 - LTR direction for English letter boxes
+- Unified layout with header (back, progress) and footer (status, next)
+- Word teaching modal after each answer
 
 ### Flashcards Game
 - Multiple choice quiz to learn English words
@@ -53,8 +58,9 @@
 - Spaced repetition with 5-box Leitner system
 - Continuous play (no session/round limits)
 - Overall mastery progress tracking
-- Settings and progress persisted in localStorage
-- Example sentences displayed after answering (replaces question card)
+- Settings panel in header
+- Unified layout with header (back, progress, settings) and footer (status, next)
+- Word teaching modal after each answer
 
 ### Hangman Game
 - Classic word-guessing game with letter-by-letter discovery
@@ -66,7 +72,8 @@
 - Streak tracking with best record in localStorage
 - Compact mobile-friendly UI with proper viewport handling
 - Mobile-first design with 48px minimum tap targets
-- Example sentences displayed after win/loss (replaces hangman figure)
+- Unified layout with header (back, progress) and footer (status, next)
+- Word teaching modal after win/loss
 
 ## Running the App
 ```bash
@@ -82,25 +89,25 @@ npm start
 ```
 
 ## Current Version
-**v0.1.26** - Example sentences feature
+**v0.1.27** - Unified game layout + word teaching modal
 
 ## Known Issues
 - 90/110 words still need example sentences added
+- Memory Game needs separate modal design (different from other games)
 
 ## Recent Changes (This Session)
-- Implemented vocabulary-expansion-sentences feature
-  - Added SentenceDisplay shared component
-  - 20 words have example sentences (English + Hebrew)
-  - Flashcards: sentence replaces question card after answering
-  - Hangman: sentence replaces hangman figure after win/loss
-  - Blue card styling matching app theme
-  - Speaker buttons for TTS on both languages
-  - Fixed localStorage bug (merge stored progress with fresh dictionary)
-- Created design docs for upcoming features:
-  - difficulty-levels, progress-tracking, timer-mode, sound-effects, category-selection
-- Created technical design docs:
-  - timer-mode, sound-effects, progress-tracking, category-selection, difficulty-levels, vocabulary-expansion-sentences
-- Merged feature/vocabulary-expansion-sentences branch to main
+- Implemented unified game layout feature
+  - Created GameLayout shared component (header/content/footer structure)
+  - Created GameHeader component (back button, progress, settings)
+  - Created GameFooter component (status message, next button)
+  - Created WordTeachingModal component (word card + example sentence)
+  - Refactored Spelling Game to use new layout + modal
+  - Refactored Flashcards Game to use new layout + modal
+  - Refactored Hangman Game to use new layout + modal
+  - Modal displays English word, Hebrew translation, and example sentence
+  - Speaker buttons for all text (word + sentence in both languages)
+  - Success/failure state with green checkmark or red X
+- Added Memory Game modal task to backlog (needs separate design)
 
 ## File Structure
 ```
@@ -108,10 +115,15 @@ src/
 ├── components/
 │   ├── GameMenu/         # Game selection screen
 │   ├── MemoryGame/       # Memory matching game
-│   ├── SpellingGame/     # Letter spelling game
-│   ├── FlashcardsGame/   # Spaced repetition flashcards
-│   ├── HangmanGame/      # Hangman word guessing game
-│   └── shared/           # Shared components (SentenceDisplay)
+│   ├── SpellingGame/     # Letter spelling game (uses GameLayout)
+│   ├── FlashcardsGame/   # Spaced repetition flashcards (uses GameLayout)
+│   ├── HangmanGame/      # Hangman word guessing game (uses GameLayout)
+│   └── shared/           # Shared components
+│       ├── GameLayout/   # Unified game layout wrapper
+│       ├── GameHeader/   # Header with back, progress, settings
+│       ├── GameFooter/   # Footer with status, next button
+│       ├── SentenceDisplay/ # Example sentence display
+│       └── WordTeachingModal/ # Teaching modal with word + sentence
 ├── constants/
 │   └── version.ts        # App version tracking
 ├── data/
@@ -138,5 +150,7 @@ src/
 docs/features/            # Feature design documents (for implement-agent)
 
 design-docs/              # UX/Product design documents
+├── unified-game-layout.md # Unified layout + word teaching modal design
+
 tech-docs/                # Technical design documents
 ```

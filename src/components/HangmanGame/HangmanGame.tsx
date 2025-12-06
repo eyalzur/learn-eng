@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Word, getRandomWords } from '../../data/dictionary';
 import { speak } from '../../utils/speech';
-import { SentenceDisplay } from '../shared/SentenceDisplay';
+import { GameLayout } from '../shared/GameLayout';
+import { WordTeachingModal } from '../shared/WordTeachingModal';
 
 interface HangmanGameProps {
   onBack?: () => void;
@@ -134,6 +135,7 @@ export const HangmanGame: React.FC<HangmanGameProps> = ({ onBack }) => {
   const [record, setRecord] = useState<number>(getRecord());
   const [isNewRecord, setIsNewRecord] = useState<boolean>(false);
   const [availableLetters, setAvailableLetters] = useState<string[]>([]);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const setupWord = useCallback((word: Word) => {
     // Get unique letters from the word
@@ -148,6 +150,7 @@ export const HangmanGame: React.FC<HangmanGameProps> = ({ onBack }) => {
     setGuessedLetters(new Set());
     setWrongGuesses([]);
     setGameStatus('playing');
+    setShowModal(false);
   }, []);
 
   const initializeGame = useCallback(() => {
@@ -189,6 +192,7 @@ export const HangmanGame: React.FC<HangmanGameProps> = ({ onBack }) => {
           saveRecord(streak);
         }
         speak(currentWord.english, 'en');
+        setShowModal(true);
       }
     } else {
       // Check if won (all letters guessed)
@@ -207,6 +211,7 @@ export const HangmanGame: React.FC<HangmanGameProps> = ({ onBack }) => {
           setRecord(newStreak);
           setIsNewRecord(true);
         }
+        setShowModal(true);
       }
     }
   };
@@ -231,6 +236,11 @@ export const HangmanGame: React.FC<HangmanGameProps> = ({ onBack }) => {
     }
   };
 
+  const handleModalClose = () => {
+    setShowModal(false);
+    handleNextWord();
+  };
+
   const handleHint = () => {
     if (currentWord) {
       speak(currentWord.english, 'en');
@@ -251,98 +261,104 @@ export const HangmanGame: React.FC<HangmanGameProps> = ({ onBack }) => {
   const displayWord = getDisplayWord();
   const wrongGuessCount = wrongGuesses.length;
 
-  return (
-    <div className="hangman-game">
-      <div className="game-header">
-        {onBack && (
-          <button className="back-button" onClick={onBack}>
-            → חזרה לתפריט
-          </button>
-        )}
-        <h1>משחק תליין</h1>
-        <div className="game-stats">
-          <span className="stat">
-            רצף: <strong>{streak}</strong>
-          </span>
-          <span className={`stat record ${isNewRecord ? 'new-record-glow' : ''}`}>
-            שיא: <strong>{record}</strong>
-          </span>
-        </div>
-        <div className="game-controls">
-          <button className="restart-button" onClick={initializeGame}>
-            משחק חדש
-          </button>
-        </div>
-      </div>
+  const progressContent = (
+    <>
+      <span className="stat">
+        רצף: <strong>{streak}</strong>
+      </span>
+      <span className={`stat record ${isNewRecord ? 'new-record-glow' : ''}`}>
+        שיא: <strong>{record}</strong>
+      </span>
+    </>
+  );
 
-      {currentWord && (
-        <div className="hangman-content">
-          {(gameStatus === 'won' || gameStatus === 'lost') && currentWord.exampleSentence ? (
-            <SentenceDisplay sentence={currentWord.exampleSentence} />
-          ) : (
+  const getStatusMessage = () => {
+    if (gameStatus === 'won') return 'ניצחת!';
+    if (gameStatus === 'lost') return 'הפסדת';
+    return undefined;
+  };
+
+  const getStatusType = (): 'success' | 'error' | 'neutral' => {
+    if (gameStatus === 'won') return 'success';
+    if (gameStatus === 'lost') return 'error';
+    return 'neutral';
+  };
+
+  return (
+    <>
+      <GameLayout
+        onBack={onBack || (() => {})}
+        title="משחק תליין"
+        progress={progressContent}
+        statusMessage={getStatusMessage()}
+        statusType={getStatusType()}
+        showNext={gameStatus !== 'playing' && !showModal}
+        onNext={handleNextWord}
+      >
+        {currentWord && (
+          <div className="hangman-game__content">
             <div className="hangman-figure">
               <pre>{getHangmanFigure(wrongGuessCount)}</pre>
             </div>
-          )}
 
-          <div className="word-display">
-            <div className="hebrew-hint">
-              <button className="speak-btn" onClick={handleHint} title="השמע">
-                🔊
-              </button>
-              {currentWord.hebrew}
-              <span className="transcription-hint">({currentWord.transcription})</span>
-            </div>
-            <div className={`word-blanks ${gameStatus === 'lost' ? 'revealed-lost' : ''} ${gameStatus === 'won' ? 'revealed-won' : ''}`}>
-              {displayWord.map((char, index) => (
-                <span key={index} className="letter-blank">
-                  {char}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {gameStatus === 'playing' && (
-            <>
-              <div className="letter-keyboard">
-                {availableLetters.map(letter => {
-                  const isGuessed = guessedLetters.has(letter);
-                  const isCorrect = isGuessed && currentWord.english.toLowerCase().includes(letter);
-                  const isIncorrect = isGuessed && !currentWord.english.toLowerCase().includes(letter);
-
-                  return (
-                    <button
-                      key={letter}
-                      className={`letter-button ${isCorrect ? 'correct' : ''} ${isIncorrect ? 'incorrect' : ''}`}
-                      onClick={() => handleLetterGuess(letter)}
-                      disabled={isGuessed}
-                    >
-                      {letter.toUpperCase()}
-                    </button>
-                  );
-                })}
+            <div className="word-display">
+              <div className="hebrew-hint">
+                <button className="speak-btn" onClick={handleHint} title="השמע">
+                  🔊
+                </button>
+                {currentWord.hebrew}
+                <span className="transcription-hint">({currentWord.transcription})</span>
               </div>
-
-              {wrongGuesses.length > 0 && (
-                <div className="wrong-guesses">
-                  שגויים: {wrongGuesses.map(l => l.toUpperCase()).join(', ')}
-                  <span className="count"> ({wrongGuessCount}/{MAX_WRONG_GUESSES})</span>
-                </div>
-              )}
-            </>
-          )}
-
-          {(gameStatus === 'won' || gameStatus === 'lost') && (
-            <div className={`game-feedback ${gameStatus}`}>
-              <span className="feedback-icon">{gameStatus === 'won' ? '✓' : '✗'}</span>
-              <button className="next-button" onClick={handleNextWord}>
-                הבא →
-              </button>
+              <div className={`word-blanks ${gameStatus === 'lost' ? 'revealed-lost' : ''} ${gameStatus === 'won' ? 'revealed-won' : ''}`}>
+                {displayWord.map((char, index) => (
+                  <span key={index} className="letter-blank">
+                    {char}
+                  </span>
+                ))}
+              </div>
             </div>
-          )}
-        </div>
-      )}
 
-    </div>
+            {gameStatus === 'playing' && (
+              <>
+                <div className="letter-keyboard">
+                  {availableLetters.map(letter => {
+                    const isGuessed = guessedLetters.has(letter);
+                    const isCorrect = isGuessed && currentWord.english.toLowerCase().includes(letter);
+                    const isIncorrect = isGuessed && !currentWord.english.toLowerCase().includes(letter);
+
+                    return (
+                      <button
+                        key={letter}
+                        className={`letter-button ${isCorrect ? 'correct' : ''} ${isIncorrect ? 'incorrect' : ''}`}
+                        onClick={() => handleLetterGuess(letter)}
+                        disabled={isGuessed}
+                      >
+                        {letter.toUpperCase()}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {wrongGuesses.length > 0 && (
+                  <div className="wrong-guesses">
+                    שגויים: {wrongGuesses.map(l => l.toUpperCase()).join(', ')}
+                    <span className="count"> ({wrongGuessCount}/{MAX_WRONG_GUESSES})</span>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        )}
+      </GameLayout>
+
+      {currentWord && (
+        <WordTeachingModal
+          isOpen={showModal}
+          word={currentWord}
+          isSuccess={gameStatus === 'won'}
+          onClose={handleModalClose}
+        />
+      )}
+    </>
   );
 };

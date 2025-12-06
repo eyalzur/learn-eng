@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Word, getRandomWords } from '../../data/dictionary';
 import { speak } from '../../utils/speech';
+import { GameLayout } from '../shared/GameLayout';
+import { WordTeachingModal } from '../shared/WordTeachingModal';
 
 interface SpellingGameProps {
   onBack?: () => void;
@@ -55,6 +57,7 @@ export const SpellingGame: React.FC<SpellingGameProps> = ({ onBack }) => {
   const [isNewRecord, setIsNewRecord] = useState<boolean>(false);
   const [showHint, setShowHint] = useState<boolean>(false);
   const [justDropped, setJustDropped] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const setupWord = useCallback((word: Word) => {
     const letters = word.english.toLowerCase().split('');
@@ -67,6 +70,7 @@ export const SpellingGame: React.FC<SpellingGameProps> = ({ onBack }) => {
     setFeedback(null);
     setShowHint(false);
     setSelectedLetter(null);
+    setShowModal(false);
   }, []);
 
   const initializeGame = useCallback(() => {
@@ -198,6 +202,13 @@ export const SpellingGame: React.FC<SpellingGameProps> = ({ onBack }) => {
         saveRecord(streak);
       }
     }
+
+    // Show the teaching modal
+    setShowModal(true);
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
   };
 
   const nextWord = () => {
@@ -227,103 +238,125 @@ export const SpellingGame: React.FC<SpellingGameProps> = ({ onBack }) => {
 
   const allBoxesFilled = letterBoxes.every(box => box !== null);
 
+  const progressContent = (
+    <>
+      <span className="stat">
+        רצף: <strong>{streak}</strong>
+      </span>
+      <span className={`stat record ${isNewRecord ? 'new-record-glow' : ''}`}>
+        שיא: <strong>{record}</strong>
+      </span>
+    </>
+  );
+
+  // Determine footer status
+  const getStatusMessage = () => {
+    if (feedback === 'correct') return 'נכון!';
+    if (feedback === 'incorrect') return 'לא נכון';
+    return undefined;
+  };
+
+  const getStatusType = (): 'success' | 'error' | 'neutral' => {
+    if (feedback === 'correct') return 'success';
+    if (feedback === 'incorrect') return 'error';
+    return 'neutral';
+  };
+
   return (
-    <div className="spelling-game">
-      <div className="game-header">
-        {onBack && (
-          <button className="back-button" onClick={onBack}>
-            → חזרה לתפריט
-          </button>
+    <>
+      <GameLayout
+        onBack={onBack || (() => {})}
+        title="משחק איות"
+        progress={progressContent}
+        statusMessage={getStatusMessage()}
+        statusType={getStatusType()}
+        showNext={!!feedback && !showModal}
+        onNext={nextWord}
+      >
+        {currentWord && (
+          <div className="spelling-game__content">
+            <div className="spelling-card">
+              <div className="word-display">
+                <span className="hebrew-word">{currentWord.hebrew}</span>
+                {showHint && (
+                  <span className="transcription-hint">{currentWord.transcription}</span>
+                )}
+              </div>
+
+              <div className="letter-boxes">
+                {letterBoxes.map((letter, index) => (
+                  <div
+                    key={index}
+                    className={`letter-box ${letter ? 'filled' : ''} ${feedback || ''} ${selectedLetter && !letter ? 'awaiting' : ''}`}
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={() => handleDropOnBox(index)}
+                    onClick={() => handleBoxClick(index)}
+                  >
+                    {letter?.toUpperCase()}
+                  </div>
+                ))}
+              </div>
+
+              {feedback === 'incorrect' && !showModal && (
+                <div className="correct-answer">
+                  התשובה הנכונה: <strong>{currentWord.english.toUpperCase()}</strong>
+                </div>
+              )}
+
+              <div className="action-buttons">
+                {!feedback ? (
+                  <>
+                    <button
+                      className="hint-button"
+                      onClick={handleHint}
+                    >
+                      רמז (הגייה)
+                    </button>
+                    <button
+                      className="check-button"
+                      onClick={checkAnswer}
+                      disabled={!allBoxesFilled}
+                    >
+                      בדוק
+                    </button>
+                  </>
+                ) : null}
+              </div>
+
+              <div className="letter-basket">
+                {letterBasket.map((item) => (
+                  <div
+                    key={item.id}
+                    className={`basket-letter ${draggedLetter?.id === item.id ? 'dragging' : ''} ${selectedLetter?.id === item.id ? 'selected' : ''}`}
+                    draggable={!feedback}
+                    onDragStart={() => handleDragStart(item)}
+                    onDragEnd={handleDragEnd}
+                    onClick={() => handleSelectLetter(item)}
+                  >
+                    {item.letter.toUpperCase()}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="game-instructions">
+              <p>לחץ על אות ואז על משבצת כדי למקם אותה. לחץ על משבצת מלאה להחזיר את האות.</p>
+            </div>
+          </div>
         )}
-        <h1>משחק איות</h1>
-        <div className="game-stats">
-          <span className="stat">
-            רצף: <strong>{streak}</strong>
-          </span>
-          <span className={`stat record ${isNewRecord ? 'new-record-glow' : ''}`}>
-            שיא: <strong>{record}</strong>
-          </span>
-        </div>
-        <div className="game-controls">
-          <button className="restart-button" onClick={initializeGame}>
-            משחק חדש
-          </button>
-        </div>
-      </div>
+      </GameLayout>
 
       {currentWord && (
-        <div className="spelling-card">
-          <div className="word-display">
-            <span className="hebrew-word">{currentWord.hebrew}</span>
-            {showHint && (
-              <span className="transcription-hint">{currentWord.transcription}</span>
-            )}
-          </div>
-
-          <div className="letter-boxes">
-            {letterBoxes.map((letter, index) => (
-              <div
-                key={index}
-                className={`letter-box ${letter ? 'filled' : ''} ${feedback || ''} ${selectedLetter && !letter ? 'awaiting' : ''}`}
-                onDragOver={(e) => e.preventDefault()}
-                onDrop={() => handleDropOnBox(index)}
-                onClick={() => handleBoxClick(index)}
-              >
-                {letter?.toUpperCase()}
-              </div>
-            ))}
-          </div>
-
-          {feedback === 'incorrect' && (
-            <div className="correct-answer">
-              התשובה הנכונה: <strong>{currentWord.english.toUpperCase()}</strong>
-            </div>
-          )}
-
-          <div className="action-buttons">
-            {!feedback ? (
-              <>
-                <button
-                  className="hint-button"
-                  onClick={handleHint}
-                >
-                  רמז (הגייה)
-                </button>
-                <button
-                  className="check-button"
-                  onClick={checkAnswer}
-                  disabled={!allBoxesFilled}
-                >
-                  בדוק
-                </button>
-              </>
-            ) : (
-              <button className="next-button" onClick={nextWord}>
-                הבא
-              </button>
-            )}
-          </div>
-
-          <div className="letter-basket">
-            {letterBasket.map((item) => (
-              <div
-                key={item.id}
-                className={`basket-letter ${draggedLetter?.id === item.id ? 'dragging' : ''} ${selectedLetter?.id === item.id ? 'selected' : ''}`}
-                draggable={!feedback}
-                onDragStart={() => handleDragStart(item)}
-                onDragEnd={handleDragEnd}
-                onClick={() => handleSelectLetter(item)}
-              >
-                {item.letter.toUpperCase()}
-              </div>
-            ))}
-          </div>
-        </div>
+        <WordTeachingModal
+          isOpen={showModal}
+          word={currentWord}
+          isSuccess={feedback === 'correct'}
+          onClose={() => {
+            handleModalClose();
+            nextWord();
+          }}
+        />
       )}
-
-      <div className="game-instructions">
-        <p>לחץ על אות ואז על משבצת כדי למקם אותה. לחץ על משבצת מלאה להחזיר את האות.</p>
-      </div>
-    </div>
+    </>
   );
 };
